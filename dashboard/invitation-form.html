@@ -1,299 +1,442 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="id">
-    <head>
-        <meta charset="UTF-8" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Form Undangan - IK-PRO.ID</title>
 
-        <title>Buat Undangan - IK-PRO.ID</title>
+    <link
+        rel="stylesheet"
+        href="invitation-form.css"
+    >
 
-        <link rel="stylesheet" href="invitation-form.css" />
+    <!-- Font Awesome -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+</head>
 
-        <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    </head>
-    <body>
-        <!-- =====================================================
-     SIDEBAR
-===================================================== -->
-        <aside class="sidebar" id="sidebar">
-            <div class="sidebar-logo">
-                <div class="logo-icon">IK</div>
+<body>
 
-                <div class="logo-text">
-                    <strong>IK-PRO</strong>
-                    <span>.MY.ID</span>
-                </div>
+<div class="app">
+
+    <!-- ================= SIDEBAR ================= -->
+    <aside class="sidebar" id="sidebar">
+
+        <div class="sidebar-header">
+
+            <div class="logo">
+                IK-PRO<span>.ID</span>
             </div>
 
-            <nav class="sidebar-menu">
-                <a href="index.html" class="menu-item">
-                    <span>▦</span>
-                    <span>Dashboard</span>
-                </a>
+            <button
+                class="close-sidebar"
+                id="closeSidebar"
+            >
+                <i class="fa-solid fa-xmark"></i>
+            </button>
 
-                <a href="#" class="menu-item active">
-                    <span>💌</span>
-                    <span>Undangan</span>
-                </a>
+        </div>
 
-                <a href="#" class="menu-item">
-                    <span>🎨</span>
-                    <span>Pilih Tema</span>
-                </a>
+        <nav class="sidebar-menu">
 
-                <a href="#" class="menu-item">
-                    <span>👥</span>
-                    <span>Tamu</span>
-                </a>
+            <a href="index.html">
+                <i class="fa-solid fa-house"></i>
+                <span>Dashboard</span>
+            </a>
 
-                <a href="#" class="menu-item">
-                    <span>💬</span>
-                    <span>Ucapan</span>
-                </a>
+            <a href="index.html">
+                <i class="fa-solid fa-envelope"></i>
+                <span>Undangan</span>
+            </a>
 
-                <a href="#" class="menu-item">
-                    <span>📊</span>
-                    <span>Statistik</span>
-                </a>
+            <a href="#" class="active">
+                <i class="fa-solid fa-pen-to-square"></i>
+                <span>Edit Undangan</span>
+            </a>
 
-                <a href="#" class="menu-item">
-                    <span>⚙️</span>
-                    <span>Pengaturan</span>
-                </a>
-            </nav>
+        </nav>
 
-            <div class="sidebar-bottom">
-                <button type="button" id="logoutButton" class="logout-button">
-                    <span>↪</span>
-                    <span>Keluar</span>
-                </button>
+        <div class="sidebar-bottom">
+
+            <button id="logoutBtn">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                <span>Logout</span>
+            </button>
+
+        </div>
+
+    </aside>
+
+
+    <!-- ================= MAIN ================= -->
+    <main class="main">
+
+        <!-- TOPBAR -->
+        <header class="topbar">
+
+            <button
+                class="menu-btn"
+                id="menuBtn"
+            >
+                <i class="fa-solid fa-bars"></i>
+            </button>
+
+            <div>
+                <h1 id="pageTitle">
+                    Buat Undangan
+                </h1>
+
+                <p id="welcomeText">
+                    Kelola informasi undangan Anda
+                </p>
             </div>
-        </aside>
-        <div class="sidebar-overlay" id="sidebarOverlay"></div>
-        <!-- =====================================================
-     MAIN
-===================================================== -->
-        <main class="main-content">
-            <!-- TOPBAR -->
 
-            <header class="topbar">
-                <button type="button" id="menuToggle" class="menu-toggle">
-                    ☰
-                </button>
+        </header>
 
-                <div class="topbar-title">Buat Undangan</div>
 
-                <div class="user-area">
-                    <div class="user-avatar" id="userAvatar">?</div>
+        <!-- CONTENT -->
+        <section class="content">
 
-                    <div class="user-info">
-                        <strong id="userName"> Memuat... </strong>
+            <form id="invitationForm">
 
-                        <span>Client</span>
-                    </div>
-                </div>
-            </header>
+                <!-- ================= INFORMASI ================= -->
+                <div class="form-card">
 
-            <!-- CONTENT -->
+                    <div class="card-header">
 
-            <section class="form-content">
-                <div class="page-heading">
-                    <div>
-                        <a href="index.html" class="back-link">
-                            ← Kembali ke Dashboard
-                        </a>
-
-                        <h1>Buat Undangan</h1>
-
-                        <p>Masukkan informasi dasar undangan Anda.</p>
-                    </div>
-                </div>
-
-                <!-- FORM -->
-
-                <form id="invitationForm" class="invitation-form">
-                    <!-- INFORMASI DASAR -->
-
-                    <div class="form-card">
-                        <div class="card-heading">
-                            <div class="heading-icon">💌</div>
-
-                            <div>
-                                <h2>Informasi Undangan</h2>
-
-                                <p>
-                                    Informasi dasar yang akan digunakan pada
-                                    undangan.
-                                </p>
-                            </div>
+                        <div class="card-icon">
+                            <i class="fa-solid fa-envelope"></i>
                         </div>
 
-                        <!-- TITLE -->
+                        <div>
+                            <h2>Informasi Undangan</h2>
+                            <p>Informasi dasar undangan digital</p>
+                        </div>
 
-                        <div class="form-group">
-                            <label for="title">
-                                Judul Undangan
-                                <span>*</span>
-                            </label>
+                    </div>
+
+
+                    <!-- TITLE -->
+                    <div class="form-group">
+
+                        <label for="title">
+                            Judul Undangan
+                        </label>
+
+                        <input
+                            type="text"
+                            id="title"
+                            value="The Wedding Of"
+                            placeholder="Contoh: The Wedding Of"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- SLUG -->
+                    <div class="form-group">
+
+                        <label for="slug">
+                            Slug
+                        </label>
+
+                        <div class="slug-input">
+
+                            <span>
+                                ik-pro.my.id/
+                            </span>
 
                             <input
                                 type="text"
-                                id="title"
-                                name="title"
-                                value="The Wedding Of"
-                                placeholder="Contoh: The Wedding Of"
+                                id="slug"
+                                placeholder="anisa-bagas"
                                 required
-                            />
+                                autocomplete="off"
+                            >
+
                         </div>
 
-                        <!-- SLUG -->
+                        <small>
+                            Gunakan huruf, angka dan tanda -
+                            <br>
+                            Contoh: <strong>anisa-bagas</strong>
+                        </small>
 
-                        <div class="form-group">
-                            <label for="slug">
-                                URL Undangan
-                                <span>*</span>
-                            </label>
+                        <div
+                            class="slug-preview"
+                            id="slugPreview"
+                        >
+                            URL: -
+                        </div>
 
-                            <div class="slug-input">
-                                <span> ik-pro.my.id/ </span>
+                    </div>
 
-                                <input
-                                    type="text"
-                                    id="slug"
-                                    name="slug"
-                                    placeholder="anisa-bagas"
-                                    required
-                                />
 
-                                <span> / </span>
-                            </div>
+                    <!-- THEME -->
+                    <div class="form-group">
+
+                        <label for="theme">
+                            Tema
+                        </label>
+
+                        <select id="theme" required>
+
+                            <option value="modern-white">
+                                Modern White
+                            </option>
+
+                            <option value="vintage-brown">
+                                Vintage Brown
+                            </option>
+
+                            <option value="java-green">
+                                Java Green
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- STATUS -->
+                    <div class="form-group">
+
+                        <label for="status">
+                            Status
+                        </label>
+
+                        <select id="status">
+
+                            <option value="draft">
+                                Draft
+                            </option>
+
+                            <option value="active">
+                                Aktif
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ================= COVER ================= -->
+                <div class="form-card">
+
+                    <div class="card-header">
+
+                        <div class="card-icon">
+                            <i class="fa-solid fa-image"></i>
+                        </div>
+
+                        <div>
+                            <h2>Cover Image</h2>
+                            <p>Upload gambar cover undangan</p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="upload-area">
+
+                        <label
+                            for="coverImageFile"
+                            class="upload-box"
+                            id="uploadBox"
+                        >
+
+                            <i class="fa-solid fa-cloud-arrow-up"></i>
+
+                            <strong>
+                                Pilih Cover Image
+                            </strong>
+
+                            <span>
+                                JPG, PNG atau WebP
+                            </span>
 
                             <small>
-                                Gunakan huruf kecil, angka, dan tanda strip (-).
+                                Maksimal 5 MB
                             </small>
 
-                            <div id="slugPreview" class="slug-preview">
-                                URL:
-                            </div>
-                        </div>
+                        </label>
 
-                        <!-- THEME -->
 
-                        <div class="form-group">
-                            <label for="theme">
-                                Tema
-                                <span>*</span>
-                            </label>
+                        <input
+                            type="file"
+                            id="coverImageFile"
+                            accept="image/jpeg,image/png,image/webp"
+                            hidden
+                        >
 
-                            <select id="theme" name="theme" required>
-                                <option value="modern-white">
-                                    Modern White
-                                </option>
 
-                                <option value="vintage-brown">
-                                    Vintage Brown
-                                </option>
+                        <!-- URL hasil upload -->
+                        <input
+                            type="hidden"
+                            id="coverImage"
+                        >
 
-                                <option value="java-green">Java Green</option>
-                            </select>
-                        </div>
+
+                        <!-- PREVIEW -->
+                        <div
+                            class="cover-preview"
+                            id="coverPreview"
+                        ></div>
+
 
                         <!-- STATUS -->
+                        <div
+                            class="upload-status"
+                            id="uploadStatus"
+                        ></div>
 
-                        <div class="form-group">
-                            <label for="status"> Status </label>
-
-                            <select id="status" name="status">
-                                <option value="draft">Draft</option>
-
-                                <option value="active">Aktif</option>
-                            </select>
-                        </div>
                     </div>
 
-                    <!-- MEDIA -->
+                </div>
 
-                    <div class="form-card">
-                        <div class="card-heading">
-                            <div class="heading-icon">🖼️</div>
 
-                            <div>
-                                <h2>Media</h2>
+                <!-- ================= MUSIC ================= -->
+                <div class="form-card">
 
-                                <p>Tambahkan cover dan musik untuk undangan.</p>
-                            </div>
+                    <div class="card-header">
+
+                        <div class="card-icon">
+                            <i class="fa-solid fa-music"></i>
                         </div>
 
-                        <!-- COVER -->
-
-                        <div class="form-group">
-                            <label for="coverImageFile">Cover Image</label>
-
-                            <input
-                                type="file"
-                                id="coverImageFile"
-                                accept="image/jpeg,image/png,image/webp"
-                            />
-
-                            <small> JPG, PNG, atau WebP. Maksimal 5 MB. </small>
-
-                            <div id="coverPreview" class="cover-preview"></div>
-
-                            <div id="uploadStatus" class="upload-status"></div>
+                        <div>
+                            <h2>Music</h2>
+                            <p>Pilih musik untuk undangan</p>
                         </div>
-                        <input type="file" id="coverImageFile">
 
-                        <!-- MUSIC -->
-
-                        <div class="form-group">
-                            <label for="music">Music</label>
-
-                            <select id="music">
-                                <option value="">Tanpa Musik</option>
-
-                                <option value="romantic-1">
-                                    Romantic Piano
-                                </option>
-
-                                <option value="romantic-2">Wedding Love</option>
-
-                                <option value="javanese-1">
-                                    Javanese Romantic
-                                </option>
-
-                                <option value="javanese-2">
-                                    Javanese Traditional
-                                </option>
-
-                                <option value="instrumental-1">
-                                    Romantic Instrumental
-                                </option>
-                            </select>
-                        </div>
                     </div>
 
-                    <!-- MESSAGE -->
 
-                    <div id="formMessage" class="form-message"></div>
+                    <div class="form-group">
 
-                    <!-- ACTION -->
+                        <label for="music">
+                            Pilihan Musik
+                        </label>
 
-                    <div class="form-actions">
-                        <a href="index.html" class="cancel-button"> Batal </a>
+                        <select id="music">
+
+                            <option value="">
+                                Tanpa Musik
+                            </option>
+
+                            <option value="romantic-1">
+                                Romantic Piano
+                            </option>
+
+                            <option value="romantic-2">
+                                Wedding Love
+                            </option>
+
+                            <option value="javanese-1">
+                                Javanese Romantic
+                            </option>
+
+                            <option value="javanese-2">
+                                Javanese Traditional
+                            </option>
+
+                            <option value="instrumental-1">
+                                Romantic Instrumental
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- MUSIC PLAYER -->
+                    <div
+                        class="music-player"
+                        id="musicPlayer"
+                    >
+
+                        <div class="music-icon">
+                            <i class="fa-solid fa-music"></i>
+                        </div>
+
+                        <div class="music-info">
+
+                            <strong id="musicName">
+                                Tanpa Musik
+                            </strong>
+
+                            <span>
+                                Preview musik
+                            </span>
+
+                        </div>
 
                         <button
-                            type="submit"
-                            id="saveButton"
-                            class="save-button"
+                            type="button"
+                            id="musicPlayBtn"
                         >
-                            <span class="button-text"> Simpan Undangan </span>
-
-                            <span class="button-loading"> Menyimpan... </span>
+                            <i class="fa-solid fa-play"></i>
                         </button>
+
                     </div>
-                </form>
-            </section>
-        </main>
-        <script src="invitation-form.js"></script>
-    </body>
+
+
+                    <audio
+                        id="musicAudio"
+                        preload="none"
+                    ></audio>
+
+                </div>
+
+
+                <!-- ================= BUTTON ================= -->
+                <div class="form-actions">
+
+                    <a
+                        href="index.html"
+                        class="btn btn-secondary"
+                    >
+                        <i class="fa-solid fa-arrow-left"></i>
+                        Batal
+                    </a>
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary"
+                        id="saveBtn"
+                    >
+                        <i class="fa-solid fa-floppy-disk"></i>
+                        <span>Simpan Undangan</span>
+                    </button>
+
+                </div>
+
+            </form>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<!-- OVERLAY MOBILE -->
+<div
+    class="overlay"
+    id="overlay"
+></div>
+
+
+<!-- SUPABASE -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="invitation-form.js"></script>
+
+</body>
 </html>

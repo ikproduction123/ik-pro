@@ -1,16 +1,15 @@
 /* =====================================================
-IK-PRO.ID
-INVITATION FORM
+   IK-PRO.ID
+   INVITATION FORM
 ===================================================== */
 
 /* =====================================================
-SUPABASE CONFIG
+   SUPABASE CONFIG
 ===================================================== */
 
 const SUPABASE_URL = "https://dxmhyjcahmmxbxtxtgxh.supabase.co";
 
-const SUPABASE_ANON_KEY =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR4bWh5amNhaG1teGJ4dHh0Z3hoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk1Njc1MDcsImV4cCI6MjEwNTE0MzUwN30.YjpAwvYxLlqlztAQPL2n95q_7u05Jng1U_ToFSKhSOo";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR4bWh5amNhaG1teGJ4dHh0Z3hoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk1Njc1MDcsImV4cCI6MjEwNTE0MzUwN30.YjpAwvYxLlqlztAQPL2n95q_7u05Jng1U_ToFSKhSOo";
 
 const supabaseClient = window.supabase.createClient(
     SUPABASE_URL,
@@ -18,7 +17,7 @@ const supabaseClient = window.supabase.createClient(
 );
 
 /* =====================================================
-ELEMENTS
+   ELEMENT
 ===================================================== */
 
 const form = document.getElementById("invitationForm");
@@ -27,152 +26,216 @@ const titleInput = document.getElementById("title");
 
 const slugInput = document.getElementById("slug");
 
+const themeInput = document.getElementById("theme");
+
+const statusInput = document.getElementById("status");
+
+const coverImageFile = document.getElementById("coverImageFile");
+
+const coverImage = document.getElementById("coverImage");
+
+const coverPreview = document.getElementById("coverPreview");
+
+const uploadStatus = document.getElementById("uploadStatus");
+
 const slugPreview = document.getElementById("slugPreview");
 
-const formMessage = document.getElementById("formMessage");
+const musicInput = document.getElementById("music");
 
-const saveButton = document.getElementById("saveButton");
+const musicPlayer = document.getElementById("musicPlayer");
+
+const musicName = document.getElementById("musicName");
+
+const musicAudio = document.getElementById("musicAudio");
+
+const musicPlayBtn = document.getElementById("musicPlayBtn");
+
+const saveBtn = document.getElementById("saveBtn");
+
+const pageTitle = document.getElementById("pageTitle");
+
+const welcomeText = document.getElementById("welcomeText");
+
+const menuBtn = document.getElementById("menuBtn");
+
+const closeSidebar = document.getElementById("closeSidebar");
+
+const sidebar = document.getElementById("sidebar");
+
+const overlay = document.getElementById("overlay");
+
+const logoutBtn = document.getElementById("logoutBtn");
 
 /* =====================================================
-STATE
+   GLOBAL
 ===================================================== */
 
 let currentUser = null;
 
-let editingInvitationId = null;
+let invitationId = null;
+
+let oldCoverPath = null;
+
+let isUploading = false;
 
 /* =====================================================
-INIT
+   MUSIC LIST
 ===================================================== */
 
-document.addEventListener("DOMContentLoaded", initialize);
+const musicList = {
+    "romantic-1": {
+        name: "Romantic Piano",
+        url: "../assets/music/romantic-1.mp3"
+    },
 
-async function initialize() {
-    /*
-     * Pastikan user login
-     */
+    "romantic-2": {
+        name: "Wedding Love",
+        url: "../assets/music/romantic-2.mp3"
+    },
 
-    const {
-        data: { user },
-        error
-    } = await supabaseClient.auth.getUser();
+    "javanese-1": {
+        name: "Javanese Romantic",
+        url: "../assets/music/javanese-1.mp3"
+    },
 
-    if (error || !user) {
-        window.location.href = "../login.html";
+    "javanese-2": {
+        name: "Javanese Traditional",
+        url: "../assets/music/javanese-2.mp3"
+    },
 
-        return;
+    "instrumental-1": {
+        name: "Romantic Instrumental",
+        url: "../assets/music/instrumental-1.mp3"
     }
-
-    currentUser = user;
-
-    /*
-     * Tampilkan profile
-     */
-
-    await loadProfile(user.id);
-
-    /*
-     * Cek apakah halaman
-     * sedang edit invitation
-     */
-
-    const params = new URLSearchParams(window.location.search);
-
-    editingInvitationId = params.get("id");
-
-    if (editingInvitationId) {
-        await loadInvitation(editingInvitationId, user.id);
-    }
-
-    updateSlugPreview();
-}
+};
 
 /* =====================================================
-PROFILE
+   INITIALIZE
 ===================================================== */
 
-async function loadProfile(userId) {
-    const { data, error } = await supabaseClient
-        .from("profiles")
-        .select("nama_lengkap, email")
-        .eq("id", userId)
-        .single();
+document.addEventListener("DOMContentLoaded", init);
 
-    if (error) {
+async function init() {
+    try {
+        const {
+            data: { user },
+            error
+        } = await supabaseClient.auth.getUser();
+
+        if (error || !user) {
+            window.location.href = "../login.html";
+
+            return;
+        }
+
+        currentUser = user;
+
+        /* LOAD PROFILE */
+
+        const { data: profile } = await supabaseClient
+            .from("profiles")
+            .select("nama_lengkap,email")
+            .eq("id", currentUser.id)
+            .single();
+
+        if (profile) {
+            welcomeText.textContent = `Halo, ${profile.nama_lengkap || "Pengguna"}`;
+        }
+
+        /* CHECK EDIT MODE */
+
+        const params = new URLSearchParams(window.location.search);
+
+        invitationId = params.get("id");
+
+        if (invitationId) {
+            pageTitle.textContent = "Edit Undangan";
+
+            await loadInvitation();
+        }
+    } catch (error) {
         console.error(error);
 
-        return;
+        alert("Terjadi kesalahan saat memuat halaman.");
     }
-
-    const name = data.nama_lengkap || data.email || "User";
-
-    document.getElementById("userName").textContent = name;
-
-    document.getElementById("userAvatar").textContent = name
-        .trim()
-        .charAt(0)
-        .toUpperCase();
 }
 
 /* =====================================================
-LOAD INVITATION
+   LOAD INVITATION
 ===================================================== */
 
-async function loadInvitation(invitationId, userId) {
+async function loadInvitation() {
     const { data, error } = await supabaseClient
         .from("invitations")
-        .select("id, slug, title, theme, status, cover_image, music")
+        .select("*")
         .eq("id", invitationId)
-        .eq("user_id", userId)
+        .eq("user_id", currentUser.id)
         .single();
 
     if (error) {
         console.error(error);
 
-        showMessage(
-            "Undangan tidak ditemukan atau Anda tidak memiliki akses.",
-            "error"
-        );
+        alert("Data undangan tidak ditemukan.");
+
+        window.location.href = "index.html";
 
         return;
     }
 
-    /*
-     * Isi form
-     */
+    /* TITLE */
 
-    titleInput.value = data.title || "";
+    titleInput.value = data.title || "The Wedding Of";
+
+    /* SLUG */
 
     slugInput.value = data.slug || "";
 
-    document.getElementById("theme").value = data.theme || "modern-white";
+    updateSlugPreview();
 
-    document.getElementById("status").value = data.status || "draft";
+    /* THEME */
 
-    document.getElementById("coverImage").value = data.cover_image || "";
+    themeInput.value = data.theme || "modern-white";
 
-    document.getElementById("music").value = data.music || "";
+    /* STATUS */
 
-    document.title = "Edit Undangan - IK-PRO.ID";
+    statusInput.value = data.status || "draft";
+
+    /* COVER */
+
+    if (data.cover_image) {
+        coverImage.value = data.cover_image;
+
+        showCoverPreview(data.cover_image);
+    }
+
+    /* MUSIC */
+
+    musicInput.value = data.music || "";
+
+    updateMusic();
 }
 
 /* =====================================================
-SLUG
+   SLUG
 ===================================================== */
 
-slugInput.addEventListener("input", () => {
-    slugInput.value = slugInput.value
+slugInput.addEventListener("input", function () {
+    let value = this.value
         .toLowerCase()
         .replace(/\s+/g, "-")
         .replace(/[^a-z0-9-]/g, "")
         .replace(/-+/g, "-");
+
+    this.value = value;
+
+    updateSlugPreview();
 });
 
 function updateSlugPreview() {
     const slug = slugInput.value.trim();
 
     if (!slug) {
-        slugPreview.textContent = "URL: ik-pro.my.id/...";
+        slugPreview.textContent = "URL: -";
 
         return;
     }
@@ -181,26 +244,237 @@ function updateSlugPreview() {
 }
 
 /* =====================================================
-TITLE
+   COVER PREVIEW
 ===================================================== */
 
-titleInput.addEventListener("input", function () {
-    /*
-     * Tidak otomatis mengubah slug.
-     * Slug sengaja dikontrol user.
-     */
+function showCoverPreview(url) {
+    if (!url) {
+        coverPreview.innerHTML = "";
+
+        coverPreview.classList.remove("show");
+
+        return;
+    }
+
+    coverPreview.innerHTML = `
+
+        <img
+            src="${escapeHTML(url)}"
+            alt="Cover Image"
+        >
+
+        <button
+            type="button"
+            class="remove-cover"
+            id="removeCoverBtn"
+            title="Hapus cover"
+        >
+            <i class="fa-solid fa-trash"></i>
+        </button>
+
+    `;
+
+    coverPreview.classList.add("show");
+
+    document
+        .getElementById("removeCoverBtn")
+        .addEventListener("click", removeCover);
+}
+
+/* =====================================================
+   SELECT COVER
+===================================================== */
+
+coverImageFile.addEventListener("change", async function () {
+    const file = this.files[0];
+
+    if (!file) {
+        return;
+    }
+
+    /* VALIDATE TYPE */
+
+    const allowedTypes = ["image/jpeg", "image/png", "image/webp"];
+
+    if (!allowedTypes.includes(file.type)) {
+        alert("Format harus JPG, PNG atau WebP.");
+
+        this.value = "";
+
+        return;
+    }
+
+    /* VALIDATE SIZE */
+
+    if (file.size > 5 * 1024 * 1024) {
+        alert("Ukuran gambar maksimal 5 MB.");
+
+        this.value = "";
+
+        return;
+    }
+
+    /* LOCAL PREVIEW */
+
+    const localURL = URL.createObjectURL(file);
+
+    showCoverPreview(localURL);
+
+    uploadStatus.textContent = "Gambar dipilih. Akan diupload saat disimpan.";
 });
 
 /* =====================================================
-FORM SUBMIT
+   REMOVE COVER
+===================================================== */
+
+function removeCover() {
+    coverImageFile.value = "";
+
+    coverImage.value = "";
+
+    oldCoverPath = null;
+
+    coverPreview.innerHTML = "";
+
+    coverPreview.classList.remove("show");
+
+    uploadStatus.textContent = "Cover akan dihapus saat undangan disimpan.";
+}
+
+/* =====================================================
+   UPLOAD COVER
+===================================================== */
+
+async function uploadCover(file) {
+    if (!file) {
+        return null;
+    }
+
+    if (!invitationId) {
+        throw new Error("Invitation ID belum tersedia.");
+    }
+
+    isUploading = true;
+
+    uploadStatus.textContent = "Mengupload cover...";
+
+    /*
+       Nama file dibuat unik
+    */
+
+    const extension = file.name.split(".").pop().toLowerCase();
+
+    const fileName = `cover-${Date.now()}.${extension}`;
+
+    const filePath = `${currentUser.id}/${invitationId}/cover/${fileName}`;
+
+    const { error } = await supabaseClient.storage
+        .from("invitation-assets")
+        .upload(filePath, file, {
+            cacheControl: "3600",
+            upsert: false
+        });
+
+    isUploading = false;
+
+    if (error) {
+        console.error("Upload error:", error);
+
+        throw error;
+    }
+
+    /*
+       Ambil public URL
+    */
+
+    const { data } = supabaseClient.storage
+        .from("invitation-assets")
+        .getPublicUrl(filePath);
+
+    uploadStatus.textContent = "Cover berhasil diupload.";
+
+    return {
+        url: data.publicUrl,
+        path: filePath
+    };
+}
+
+/* =====================================================
+   MUSIC
+===================================================== */
+
+musicInput.addEventListener("change", updateMusic);
+
+function updateMusic() {
+    const musicId = musicInput.value;
+
+    if (!musicId) {
+        musicName.textContent = "Tanpa Musik";
+
+        musicAudio.pause();
+
+        musicAudio.removeAttribute("src");
+
+        musicPlayBtn.innerHTML = '<i class="fa-solid fa-play"></i>';
+
+        return;
+    }
+
+    const selectedMusic = musicList[musicId];
+
+    if (!selectedMusic) {
+        return;
+    }
+
+    musicName.textContent = selectedMusic.name;
+
+    musicAudio.src = selectedMusic.url;
+
+    musicAudio.load();
+
+    musicPlayBtn.innerHTML = '<i class="fa-solid fa-play"></i>';
+}
+
+/* =====================================================
+   MUSIC PLAY
+===================================================== */
+
+musicPlayBtn.addEventListener("click", async function () {
+    if (!musicAudio.src) {
+        alert("Silakan pilih musik terlebih dahulu.");
+
+        return;
+    }
+
+    if (musicAudio.paused) {
+        try {
+            await musicAudio.play();
+
+            musicPlayBtn.innerHTML = '<i class="fa-solid fa-pause"></i>';
+        } catch (error) {
+            console.error(error);
+
+            alert("File musik belum tersedia.");
+        }
+    } else {
+        musicAudio.pause();
+
+        musicPlayBtn.innerHTML = '<i class="fa-solid fa-play"></i>';
+    }
+});
+
+musicAudio.addEventListener("ended", function () {
+    musicPlayBtn.innerHTML = '<i class="fa-solid fa-play"></i>';
+});
+
+/* =====================================================
+   SAVE FORM
 ===================================================== */
 
 form.addEventListener("submit", async function (event) {
     event.preventDefault();
 
-    if (!currentUser) {
-        showMessage("Session login tidak ditemukan.", "error");
-
+    if (isUploading) {
         return;
     }
 
@@ -208,213 +482,219 @@ form.addEventListener("submit", async function (event) {
 
     const slug = slugInput.value.trim();
 
-    const theme = document.getElementById("theme").value;
+    const theme = themeInput.value;
 
-    const status = document.getElementById("status").value;
+    const status = statusInput.value;
 
-    const coverImage = document.getElementById("coverImage").value.trim();
+    const music = musicInput.value;
 
-    const music = document.getElementById("music").value.trim();
-
-    /* VALIDASI */
+    /* VALIDATE */
 
     if (!title) {
-        showMessage("Judul undangan wajib diisi.", "error");
+        alert("Judul undangan wajib diisi.");
+
+        titleInput.focus();
 
         return;
     }
 
     if (!slug) {
-        showMessage("Slug URL wajib diisi.", "error");
+        alert("Slug wajib diisi.");
+
+        slugInput.focus();
 
         return;
     }
 
     if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)) {
-        showMessage(
-            "Slug hanya boleh menggunakan huruf kecil, angka, dan tanda strip (-).",
-            "error"
-        );
+        alert("Slug hanya boleh berisi huruf kecil, angka, dan tanda -.");
+
+        slugInput.focus();
 
         return;
     }
 
-    setLoading(true);
+    /* DISABLE BUTTON */
+
+    saveBtn.disabled = true;
+
+    saveBtn.innerHTML = `
+            <i class="fa-solid fa-spinner fa-spin"></i>
+            <span>Menyimpan...</span>
+        `;
 
     try {
-        const invitationData = {
-            user_id: currentUser.id,
+        /* =========================================
+               CREATE
+            ========================================= */
 
-            slug: slug,
-
-            title: title,
-
-            theme: theme,
-
-            status: status,
-
-            cover_image: coverImage || null,
-
-            music: music || null
-        };
-
-        let result;
-
-        /*
-         * EDIT
-         */
-
-        if (editingInvitationId) {
-            result = await supabaseClient
+        if (!invitationId) {
+            const { data, error } = await supabaseClient
                 .from("invitations")
-                .update(invitationData)
-                .eq("id", editingInvitationId)
-                .eq("user_id", currentUser.id)
+                .insert({
+                    user_id: currentUser.id,
+
+                    title,
+
+                    slug,
+
+                    theme,
+
+                    status,
+
+                    music: music || null
+                })
                 .select()
                 .single();
-        } else {
+
+            if (error) {
+                throw error;
+            }
+
+            invitationId = data.id;
+
             /*
-             * CREATE
-             */
-            result = await supabaseClient
+                   Setelah invitation dibuat,
+                   baru upload cover.
+                */
+
+            if (coverImageFile.files[0]) {
+                const uploaded = await uploadCover(coverImageFile.files[0]);
+
+                await supabaseClient
+                    .from("invitations")
+                    .update({
+                        cover_image: uploaded.url
+                    })
+                    .eq("id", invitationId)
+                    .eq("user_id", currentUser.id);
+
+                coverImage.value = uploaded.url;
+            }
+        } else {
+            /* =========================================
+               UPDATE
+            ========================================= */
+            let coverURL = coverImage.value || null;
+
+            /*
+                   Upload cover baru
+                */
+
+            if (coverImageFile.files[0]) {
+                const uploaded = await uploadCover(coverImageFile.files[0]);
+
+                coverURL = uploaded.url;
+
+                /*
+                       Hapus cover lama
+                       jika ada
+                    */
+
+                if (oldCoverPath) {
+                    await supabaseClient.storage
+                        .from("invitation-assets")
+                        .remove([oldCoverPath]);
+                }
+            }
+
+            /*
+                   Update database
+                */
+
+            const { error } = await supabaseClient
                 .from("invitations")
-                .insert(invitationData)
-                .select()
-                .single();
+                .update({
+                    title,
+
+                    slug,
+
+                    theme,
+
+                    status,
+
+                    music: music || null,
+
+                    cover_image: coverURL
+                })
+                .eq("id", invitationId)
+                .eq("user_id", currentUser.id);
+
+            if (error) {
+                throw error;
+            }
         }
 
-        if (result.error) {
-            throw result.error;
-        }
+        /* =========================================
+               SUCCESS
+            ========================================= */
 
-        showMessage(
-            editingInvitationId
-                ? "Undangan berhasil diperbarui."
-                : "Undangan berhasil dibuat.",
-            "success"
-        );
+        alert("Undangan berhasil disimpan! 🎉");
 
-        /*
-         * Kembali dashboard
-         */
-
-        setTimeout(function () {
-            window.location.href = "index.html";
-        }, 1000);
+        window.location.href = "index.html";
     } catch (error) {
-        console.error("Save invitation error:", error);
-
-        let message = "Gagal menyimpan undangan.";
+        console.error(error);
 
         if (error.code === "23505") {
-            message =
-                "Slug tersebut sudah digunakan. Silakan gunakan slug lain.";
+            alert("Slug tersebut sudah digunakan. Silakan gunakan slug lain.");
+        } else {
+            alert("Gagal menyimpan undangan:\n" + error.message);
         }
 
-        showMessage(message, "error");
+        saveBtn.disabled = false;
 
-        setLoading(false);
+        saveBtn.innerHTML = `
+                <i class="fa-solid fa-floppy-disk"></i>
+                <span>Simpan Undangan</span>
+            `;
     }
 });
 
 /* =====================================================
-MESSAGE
+   SIDEBAR
 ===================================================== */
 
-function showMessage(message, type) {
-    formMessage.textContent = message;
+menuBtn.addEventListener("click", () => {
+    sidebar.classList.add("open");
 
-    formMessage.className = `form-message show ${type}`;
-}
-
-/* =====================================================
-LOADING
-===================================================== */
-
-function setLoading(loading) {
-    if (loading) {
-        saveButton.disabled = true;
-
-        saveButton.classList.add("loading");
-    } else {
-        saveButton.disabled = false;
-
-        saveButton.classList.remove("loading");
-    }
-}
-
-/* =====================================================
-LOGOUT
-===================================================== */
-
-document
-    .getElementById("logoutButton")
-    .addEventListener("click", async function () {
-        await supabaseClient.auth.signOut();
-
-        window.location.href = "../login.html";
-    });
-
-/* =====================================================
-MOBILE SIDEBAR
-===================================================== */
-
-const menuToggle = document.getElementById("menuToggle");
-
-const sidebar = document.getElementById("sidebar");
-
-const sidebarOverlay = document.getElementById("sidebarOverlay");
-
-menuToggle.addEventListener("click", function () {
-    sidebar.classList.toggle("open");
-
-    sidebarOverlay.classList.toggle("show");
+    overlay.classList.add("show");
 });
 
-sidebarOverlay.addEventListener("click", function () {
+closeSidebar.addEventListener("click", closeSidebarMenu);
+
+overlay.addEventListener("click", closeSidebarMenu);
+
+function closeSidebarMenu() {
     sidebar.classList.remove("open");
 
-    sidebarOverlay.classList.remove("show");
-});
+    overlay.classList.remove("show");
+}
 
-const coverImageFile = document.getElementById("coverImageFile");
-const coverImage = document.getElementById("coverImage");
-const coverPreview = document.getElementById("coverPreview");
-const uploadStatus = document.getElementById("uploadStatus");
+/* =====================================================
+   LOGOUT
+===================================================== */
 
-coverImageFile.addEventListener("change", async () => {
+logoutBtn.addEventListener("click", async function () {
+    const { error } = await supabaseClient.auth.signOut();
 
-    const file = coverImageFile.files[0];
+    if (error) {
+        alert("Gagal logout.");
 
-    if (!file) return;
-
-    // Validasi ukuran
-    if (file.size > 5 * 1024 * 1024) {
-        alert("Ukuran gambar maksimal 5 MB.");
-        coverImageFile.value = "";
         return;
     }
 
-    // Validasi tipe
-    const allowedTypes = [
-        "image/jpeg",
-        "image/png",
-        "image/webp"
-    ];
-
-    if (!allowedTypes.includes(file.type)) {
-        alert("Format gambar harus JPG, PNG, atau WebP.");
-        coverImageFile.value = "";
-        return;
-    }
-
-    // Preview
-    const previewURL = URL.createObjectURL(file);
-
-    coverPreview.innerHTML = `
-        <img
-            src="${previewURL}"
-            alt="Preview Cover"
-        >
-    `;
+    window.location.href = "../login.html";
 });
+
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
+
+function escapeHTML(value) {
+    return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}

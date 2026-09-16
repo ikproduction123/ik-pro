@@ -1,439 +1,299 @@
-<!DOCTYPE html><html lang="id"><head><meta charset="UTF-8">
+<!doctype html>
+<html lang="id">
+    <head>
+        <meta charset="UTF-8" />
 
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<title>Buat Undangan - IK-PRO.ID</title>
+        <title>Buat Undangan - IK-PRO.ID</title>
 
-<link
-    rel="stylesheet"
-    href="invitation-form.css"
->
+        <link rel="stylesheet" href="invitation-form.css" />
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-</head><body><!-- =====================================================
+        <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    </head>
+    <body>
+        <!-- =====================================================
      SIDEBAR
-===================================================== --><aside class="sidebar" id="sidebar"><div class="sidebar-logo">
+===================================================== -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-logo">
+                <div class="logo-icon">IK</div>
 
-    <div class="logo-icon">
-        IK
-    </div>
+                <div class="logo-text">
+                    <strong>IK-PRO</strong>
+                    <span>.MY.ID</span>
+                </div>
+            </div>
 
-    <div class="logo-text">
-        <strong>IK-PRO</strong>
-        <span>.MY.ID</span>
-    </div>
+            <nav class="sidebar-menu">
+                <a href="index.html" class="menu-item">
+                    <span>▦</span>
+                    <span>Dashboard</span>
+                </a>
 
-</div>
+                <a href="#" class="menu-item active">
+                    <span>💌</span>
+                    <span>Undangan</span>
+                </a>
 
+                <a href="#" class="menu-item">
+                    <span>🎨</span>
+                    <span>Pilih Tema</span>
+                </a>
 
-<nav class="sidebar-menu">
+                <a href="#" class="menu-item">
+                    <span>👥</span>
+                    <span>Tamu</span>
+                </a>
 
-    <a href="index.html" class="menu-item">
-        <span>▦</span>
-        <span>Dashboard</span>
-    </a>
+                <a href="#" class="menu-item">
+                    <span>💬</span>
+                    <span>Ucapan</span>
+                </a>
 
-    <a href="#" class="menu-item active">
-        <span>💌</span>
-        <span>Undangan</span>
-    </a>
+                <a href="#" class="menu-item">
+                    <span>📊</span>
+                    <span>Statistik</span>
+                </a>
 
-    <a href="#" class="menu-item">
-        <span>🎨</span>
-        <span>Pilih Tema</span>
-    </a>
+                <a href="#" class="menu-item">
+                    <span>⚙️</span>
+                    <span>Pengaturan</span>
+                </a>
+            </nav>
 
-    <a href="#" class="menu-item">
-        <span>👥</span>
-        <span>Tamu</span>
-    </a>
-
-    <a href="#" class="menu-item">
-        <span>💬</span>
-        <span>Ucapan</span>
-    </a>
-
-    <a href="#" class="menu-item">
-        <span>📊</span>
-        <span>Statistik</span>
-    </a>
-
-    <a href="#" class="menu-item">
-        <span>⚙️</span>
-        <span>Pengaturan</span>
-    </a>
-
-</nav>
-
-
-<div class="sidebar-bottom">
-
-    <button
-        type="button"
-        id="logoutButton"
-        class="logout-button"
-    >
-        <span>↪</span>
-        <span>Keluar</span>
-    </button>
-
-</div>
-
-</aside><div
-    class="sidebar-overlay"
-    id="sidebarOverlay"
-></div><!-- =====================================================
+            <div class="sidebar-bottom">
+                <button type="button" id="logoutButton" class="logout-button">
+                    <span>↪</span>
+                    <span>Keluar</span>
+                </button>
+            </div>
+        </aside>
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+        <!-- =====================================================
      MAIN
-===================================================== --><main class="main-content"><!-- TOPBAR -->
+===================================================== -->
+        <main class="main-content">
+            <!-- TOPBAR -->
 
-<header class="topbar">
+            <header class="topbar">
+                <button type="button" id="menuToggle" class="menu-toggle">
+                    ☰
+                </button>
 
-    <button
-        type="button"
-        id="menuToggle"
-        class="menu-toggle"
-    >
-        ☰
-    </button>
+                <div class="topbar-title">Buat Undangan</div>
 
+                <div class="user-area">
+                    <div class="user-avatar" id="userAvatar">?</div>
 
-    <div class="topbar-title">
-        Buat Undangan
-    </div>
+                    <div class="user-info">
+                        <strong id="userName"> Memuat... </strong>
 
+                        <span>Client</span>
+                    </div>
+                </div>
+            </header>
 
-    <div class="user-area">
+            <!-- CONTENT -->
 
-        <div
-            class="user-avatar"
-            id="userAvatar"
-        >
-            ?
-        </div>
+            <section class="form-content">
+                <div class="page-heading">
+                    <div>
+                        <a href="index.html" class="back-link">
+                            ← Kembali ke Dashboard
+                        </a>
 
-        <div class="user-info">
+                        <h1>Buat Undangan</h1>
 
-            <strong id="userName">
-                Memuat...
-            </strong>
-
-            <span>Client</span>
-
-        </div>
-
-    </div>
-
-</header>
-
-
-<!-- CONTENT -->
-
-<section class="form-content">
-
-
-    <div class="page-heading">
-
-        <div>
-
-            <a
-                href="index.html"
-                class="back-link"
-            >
-                ← Kembali ke Dashboard
-            </a>
-
-            <h1>
-                Buat Undangan
-            </h1>
-
-            <p>
-                Masukkan informasi dasar
-                undangan Anda.
-            </p>
-
-        </div>
-
-    </div>
-
-
-    <!-- FORM -->
-
-    <form
-        id="invitationForm"
-        class="invitation-form"
-    >
-
-
-        <!-- INFORMASI DASAR -->
-
-        <div class="form-card">
-
-            <div class="card-heading">
-
-                <div class="heading-icon">
-                    💌
+                        <p>Masukkan informasi dasar undangan Anda.</p>
+                    </div>
                 </div>
 
-                <div>
+                <!-- FORM -->
+
+                <form id="invitationForm" class="invitation-form">
+                    <!-- INFORMASI DASAR -->
+
+                    <div class="form-card">
+                        <div class="card-heading">
+                            <div class="heading-icon">💌</div>
+
+                            <div>
+                                <h2>Informasi Undangan</h2>
+
+                                <p>
+                                    Informasi dasar yang akan digunakan pada
+                                    undangan.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- TITLE -->
 
-                    <h2>
-                        Informasi Undangan
-                    </h2>
+                        <div class="form-group">
+                            <label for="title">
+                                Judul Undangan
+                                <span>*</span>
+                            </label>
+
+                            <input
+                                type="text"
+                                id="title"
+                                name="title"
+                                value="The Wedding Of"
+                                placeholder="Contoh: The Wedding Of"
+                                required
+                            />
+                        </div>
 
-                    <p>
-                        Informasi dasar yang
-                        akan digunakan pada
-                        undangan.
-                    </p>
+                        <!-- SLUG -->
 
-                </div>
+                        <div class="form-group">
+                            <label for="slug">
+                                URL Undangan
+                                <span>*</span>
+                            </label>
 
-            </div>
+                            <div class="slug-input">
+                                <span> ik-pro.my.id/ </span>
 
+                                <input
+                                    type="text"
+                                    id="slug"
+                                    name="slug"
+                                    placeholder="anisa-bagas"
+                                    required
+                                />
 
-            <!-- TITLE -->
+                                <span> / </span>
+                            </div>
 
-            <div class="form-group">
+                            <small>
+                                Gunakan huruf kecil, angka, dan tanda strip (-).
+                            </small>
 
-                <label for="title">
-                    Judul Undangan
-                    <span>*</span>
-                </label>
+                            <div id="slugPreview" class="slug-preview">
+                                URL:
+                            </div>
+                        </div>
 
-                <input
-                    type="text"
-                    id="title"
-                    name="title"
-                    value="The Wedding Of"
-                    placeholder="Contoh: The Wedding Of"
-                    required
-                >
+                        <!-- THEME -->
 
-            </div>
+                        <div class="form-group">
+                            <label for="theme">
+                                Tema
+                                <span>*</span>
+                            </label>
 
+                            <select id="theme" name="theme" required>
+                                <option value="modern-white">
+                                    Modern White
+                                </option>
 
-            <!-- SLUG -->
+                                <option value="vintage-brown">
+                                    Vintage Brown
+                                </option>
 
-            <div class="form-group">
+                                <option value="java-green">Java Green</option>
+                            </select>
+                        </div>
 
-                <label for="slug">
-                    URL Undangan
-                    <span>*</span>
-                </label>
+                        <!-- STATUS -->
 
-                <div class="slug-input">
+                        <div class="form-group">
+                            <label for="status"> Status </label>
 
-                    <span>
-                        ik-pro.my.id/
-                    </span>
+                            <select id="status" name="status">
+                                <option value="draft">Draft</option>
 
-                    <input
-                        type="text"
-                        id="slug"
-                        name="slug"
-                        placeholder="anisa-bagas"
-                        required
-                    >
+                                <option value="active">Aktif</option>
+                            </select>
+                        </div>
+                    </div>
 
-                    <span>
-                        /
-                    </span>
+                    <!-- MEDIA -->
 
-                </div>
+                    <div class="form-card">
+                        <div class="card-heading">
+                            <div class="heading-icon">🖼️</div>
 
-                <small>
-                    Gunakan huruf kecil, angka,
-                    dan tanda strip (-).
-                </small>
+                            <div>
+                                <h2>Media</h2>
 
-                <div
-                    id="slugPreview"
-                    class="slug-preview"
-                >
-                    URL:
-                </div>
+                                <p>Tambahkan cover dan musik untuk undangan.</p>
+                            </div>
+                        </div>
 
-            </div>
+                        <!-- COVER -->
 
+                        <div class="form-group">
+                            <label for="coverImageFile">Cover Image</label>
 
-            <!-- THEME -->
+                            <input
+                                type="file"
+                                id="coverImageFile"
+                                accept="image/jpeg,image/png,image/webp"
+                            />
 
-            <div class="form-group">
+                            <small> JPG, PNG, atau WebP. Maksimal 5 MB. </small>
 
-                <label for="theme">
-                    Tema
-                    <span>*</span>
-                </label>
+                            <div id="coverPreview" class="cover-preview"></div>
 
-                <select
-                    id="theme"
-                    name="theme"
-                    required
-                >
+                            <div id="uploadStatus" class="upload-status"></div>
+                        </div>
+                        <input type="file" id="coverImageFile">
 
-                    <option value="modern-white">
-                        Modern White
-                    </option>
+                        <!-- MUSIC -->
 
-                    <option value="vintage-brown">
-                        Vintage Brown
-                    </option>
+                        <div class="form-group">
+                            <label for="music">Music</label>
 
-                    <option value="java-green">
-                        Java Green
-                    </option>
+                            <select id="music">
+                                <option value="">Tanpa Musik</option>
 
-                </select>
+                                <option value="romantic-1">
+                                    Romantic Piano
+                                </option>
 
-            </div>
+                                <option value="romantic-2">Wedding Love</option>
 
+                                <option value="javanese-1">
+                                    Javanese Romantic
+                                </option>
 
-            <!-- STATUS -->
+                                <option value="javanese-2">
+                                    Javanese Traditional
+                                </option>
 
-            <div class="form-group">
+                                <option value="instrumental-1">
+                                    Romantic Instrumental
+                                </option>
+                            </select>
+                        </div>
+                    </div>
 
-                <label for="status">
-                    Status
-                </label>
+                    <!-- MESSAGE -->
 
-                <select
-                    id="status"
-                    name="status"
-                >
+                    <div id="formMessage" class="form-message"></div>
 
-                    <option value="draft">
-                        Draft
-                    </option>
+                    <!-- ACTION -->
 
-                    <option value="active">
-                        Aktif
-                    </option>
+                    <div class="form-actions">
+                        <a href="index.html" class="cancel-button"> Batal </a>
 
-                </select>
+                        <button
+                            type="submit"
+                            id="saveButton"
+                            class="save-button"
+                        >
+                            <span class="button-text"> Simpan Undangan </span>
 
-            </div>
-
-        </div>
-
-
-        <!-- MEDIA -->
-
-        <div class="form-card">
-
-            <div class="card-heading">
-
-                <div class="heading-icon">
-                    🖼️
-                </div>
-
-                <div>
-
-                    <h2>
-                        Media
-                    </h2>
-
-                    <p>
-                        Tambahkan cover dan musik
-                        untuk undangan.
-                    </p>
-
-                </div>
-
-            </div>
-
-
-            <!-- COVER -->
-
-            <div class="form-group">
-
-                <label for="coverImage">
-                    Cover Image
-                </label>
-
-                <input
-                    type="url"
-                    id="coverImage"
-                    name="cover_image"
-                    placeholder="https://..."
-                >
-
-                <small>
-                    Masukkan URL gambar cover.
-                </small>
-
-            </div>
-
-
-            <!-- MUSIC -->
-
-            <div class="form-group">
-
-                <label for="music">
-                    Music URL
-                </label>
-
-                <input
-                    type="url"
-                    id="music"
-                    name="music"
-                    placeholder="https://..."
-                >
-
-                <small>
-                    URL file musik MP3 yang digunakan
-                    pada undangan.
-                </small>
-
-            </div>
-
-        </div>
-
-
-        <!-- MESSAGE -->
-
-        <div
-            id="formMessage"
-            class="form-message"
-        ></div>
-
-
-        <!-- ACTION -->
-
-        <div class="form-actions">
-
-            <a
-                href="index.html"
-                class="cancel-button"
-            >
-                Batal
-            </a>
-
-            <button
-                type="submit"
-                id="saveButton"
-                class="save-button"
-            >
-
-                <span class="button-text">
-                    Simpan Undangan
-                </span>
-
-                <span class="button-loading">
-                    Menyimpan...
-                </span>
-
-            </button>
-
-        </div>
-
-
-    </form>
-
-
-</section>
-
-</main><script src="invitation-form.js"></script></body></html>
+                            <span class="button-loading"> Menyimpan... </span>
+                        </button>
+                    </div>
+                </form>
+            </section>
+        </main>
+        <script src="invitation-form.js"></script>
+    </body>
+</html>

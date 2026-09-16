@@ -166,8 +166,6 @@ slugInput.addEventListener("input", () => {
         .replace(/\s+/g, "-")
         .replace(/[^a-z0-9-]/g, "")
         .replace(/-+/g, "-");
-
-
 });
 
 function updateSlugPreview() {
@@ -275,10 +273,9 @@ form.addEventListener("submit", async function (event) {
                 .select()
                 .single();
         } else {
-
-        /*
-         * CREATE
-         */
+            /*
+             * CREATE
+             */
             result = await supabaseClient
                 .from("invitations")
                 .insert(invitationData)
@@ -378,4 +375,46 @@ sidebarOverlay.addEventListener("click", function () {
     sidebar.classList.remove("open");
 
     sidebarOverlay.classList.remove("show");
+});
+
+const coverImageFile = document.getElementById("coverImageFile");
+const coverImage = document.getElementById("coverImage");
+const coverPreview = document.getElementById("coverPreview");
+const uploadStatus = document.getElementById("uploadStatus");
+
+coverImageFile.addEventListener("change", async () => {
+
+    const file = coverImageFile.files[0];
+
+    if (!file) return;
+
+    // Validasi ukuran
+    if (file.size > 5 * 1024 * 1024) {
+        alert("Ukuran gambar maksimal 5 MB.");
+        coverImageFile.value = "";
+        return;
+    }
+
+    // Validasi tipe
+    const allowedTypes = [
+        "image/jpeg",
+        "image/png",
+        "image/webp"
+    ];
+
+    if (!allowedTypes.includes(file.type)) {
+        alert("Format gambar harus JPG, PNG, atau WebP.");
+        coverImageFile.value = "";
+        return;
+    }
+
+    // Preview
+    const previewURL = URL.createObjectURL(file);
+
+    coverPreview.innerHTML = `
+        <img
+            src="${previewURL}"
+            alt="Preview Cover"
+        >
+    `;
 });

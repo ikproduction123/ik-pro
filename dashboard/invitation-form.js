@@ -167,9 +167,7 @@ slugInput.addEventListener("input", () => {
         .replace(/[^a-z0-9-]/g, "")
         .replace(/-+/g, "-");
 
-    slugInput.value = value;
 
-    updateSlugPreview();
 });
 
 function updateSlugPreview() {

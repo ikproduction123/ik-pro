@@ -340,20 +340,3 @@ async function checkAuth() {
 AUTO REDIRECT
 ========================================================= */
 
-async function redirectIfLoggedIn() {
-    const session = await checkAuth();
-
-    if (!session) return;
-
-    const currentPage = window.location.pathname;
-
-    const isAuthPage =
-        currentPage.endsWith("login.html") ||
-        currentPage.endsWith("register.html");
-
-    if (isAuthPage) {
-        window.location.href = "dashboard/index.html";
-    }
-}
-
-redirectIfLoggedIn();

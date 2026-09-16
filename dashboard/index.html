@@ -1,0 +1,364 @@
+<!DOCTYPE html><html lang="id"><head><meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>Dashboard - IK-PRO.ID</title>
+
+<meta
+    name="description"
+    content="Dashboard IK-PRO.ID"
+>
+
+<link
+    rel="stylesheet"
+    href="dashboard.css"
+>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+</head><body><!-- =====================================================
+     SIDEBAR
+===================================================== --><aside class="sidebar" id="sidebar"><div class="sidebar-logo">
+
+    <div class="logo-icon">
+        IK
+    </div>
+
+    <div class="logo-text">
+        <strong>IK-PRO</strong>
+        <span>.MY.ID</span>
+    </div>
+
+</div>
+
+
+<nav class="sidebar-menu">
+
+    <a
+        href="index.html"
+        class="menu-item active"
+    >
+        <span>▦</span>
+        <span>Dashboard</span>
+    </a>
+
+
+    <a
+        href="#"
+        class="menu-item"
+    >
+        <span>🎨</span>
+        <span>Pilih Tema</span>
+    </a>
+
+
+    <a
+        href="#"
+        class="menu-item"
+    >
+        <span>✎</span>
+        <span>Edit Undangan</span>
+    </a>
+
+
+    <a
+        href="#"
+        class="menu-item"
+    >
+        <span>👥</span>
+        <span>Tamu</span>
+    </a>
+
+
+    <a
+        href="#"
+        class="menu-item"
+    >
+        <span>💬</span>
+        <span>Ucapan</span>
+    </a>
+
+
+    <a
+        href="#"
+        class="menu-item"
+    >
+        <span>📊</span>
+        <span>Statistik</span>
+    </a>
+
+
+    <a
+        href="#"
+        class="menu-item"
+    >
+        <span>⚙️</span>
+        <span>Pengaturan</span>
+    </a>
+
+</nav>
+
+
+<div class="sidebar-bottom">
+
+    <button
+        id="logoutButton"
+        class="logout-button"
+    >
+        <span>↪</span>
+        <span>Keluar</span>
+    </button>
+
+</div>
+
+</aside><!-- =====================================================
+     OVERLAY MOBILE
+===================================================== --><div
+    class="sidebar-overlay"
+    id="sidebarOverlay"
+></div><!-- =====================================================
+     MAIN
+===================================================== --><main class="main-content"><!-- HEADER -->
+
+<header class="topbar">
+
+    <button
+        class="menu-toggle"
+        id="menuToggle"
+        aria-label="Buka menu"
+    >
+        ☰
+    </button>
+
+
+    <div class="topbar-title">
+
+        <span>Dashboard</span>
+
+    </div>
+
+
+    <div class="user-area">
+
+        <div class="user-avatar" id="userAvatar">
+            ?
+        </div>
+
+        <div class="user-info">
+
+            <strong id="userName">
+                Memuat...
+            </strong>
+
+            <span>
+                Client
+            </span>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+
+<!-- CONTENT -->
+
+<section class="dashboard-content">
+
+
+    <!-- WELCOME -->
+
+    <div class="welcome-section">
+
+        <div>
+
+            <p class="welcome-label">
+                Dashboard Client
+            </p>
+
+            <h1>
+                Halo,
+                <span id="welcomeName">
+                    ...
+                </span>
+                👋
+            </h1>
+
+            <p>
+                Kelola undangan digital Anda
+                dengan mudah.
+            </p>
+
+        </div>
+
+
+        <button
+            class="primary-button"
+            id="createInvitationButton"
+        >
+            <span>+</span>
+            Buat Undangan
+        </button>
+
+    </div>
+
+
+
+    <!-- STATISTICS -->
+
+    <div class="stats-grid">
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                💌
+            </div>
+
+            <div>
+
+                <span>
+                    Total Undangan
+                </span>
+
+                <strong id="totalInvitations">
+                    0
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                ✓
+            </div>
+
+            <div>
+
+                <span>
+                    Undangan Aktif
+                </span>
+
+                <strong id="activeInvitations">
+                    0
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                📝
+            </div>
+
+            <div>
+
+                <span>
+                    Draft
+                </span>
+
+                <strong id="draftInvitations">
+                    0
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                👀
+            </div>
+
+            <div>
+
+                <span>
+                    Status
+                </span>
+
+                <strong>
+                    Client
+                </strong>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- INVITATIONS -->
+
+    <div class="section-header">
+
+        <div>
+
+            <h2>
+                Undangan Saya
+            </h2>
+
+            <p>
+                Kelola semua undangan digital Anda.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div
+        id="invitationList"
+        class="invitation-list"
+    >
+
+        <!-- Data Supabase masuk di sini -->
+
+    </div>
+
+
+    <!-- EMPTY STATE -->
+
+    <div
+        id="emptyState"
+        class="empty-state"
+        style="display: none;"
+    >
+
+        <div class="empty-icon">
+            💌
+        </div>
+
+        <h3>
+            Belum ada undangan
+        </h3>
+
+        <p>
+            Anda belum memiliki undangan digital.
+        </p>
+
+        <button
+            class="primary-button"
+            id="emptyCreateButton"
+        >
+            + Buat Undangan
+        </button>
+
+    </div>
+
+
+</section>
+
+</main><script src="dashboard.js"></script></body></html>

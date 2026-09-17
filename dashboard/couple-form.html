@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Data Mempelai - IK-PRO.ID</title>
+
+    <link rel="stylesheet" href="couple-form.css">
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+
+        <div class="sidebar-header">
+
+            <div class="logo">
+                IK-PRO<span>.ID</span>
+            </div>
+
+            <button
+                type="button"
+                class="close-sidebar"
+                id="closeSidebar"
+            >
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+        </div>
+
+
+        <nav class="sidebar-menu">
+
+            <a href="index.html">
+                <i class="fa-solid fa-house"></i>
+                <span>Dashboard</span>
+            </a>
+
+            <a href="index.html">
+                <i class="fa-solid fa-envelope"></i>
+                <span>Undangan</span>
+            </a>
+
+            <a href="#" class="active">
+                <i class="fa-solid fa-users"></i>
+                <span>Mempelai</span>
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <button type="button" id="logoutBtn">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                <span>Logout</span>
+            </button>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN -->
+    <main class="main">
+
+        <!-- TOPBAR -->
+        <header class="topbar">
+
+            <button
+                type="button"
+                class="menu-btn"
+                id="menuBtn"
+            >
+                <i class="fa-solid fa-bars"></i>
+            </button>
+
+            <div>
+
+                <h1>
+                    Data Mempelai
+                </h1>
+
+                <p id="welcomeText">
+                    Lengkapi data mempelai
+                </p>
+
+            </div>
+
+        </header>
+
+
+        <!-- CONTENT -->
+        <section class="content">
+
+            <form id="coupleForm">
+
+                <!-- =====================================
+                     MEMPELAI PRIA
+                ====================================== -->
+
+                <div class="form-card">
+
+                    <div class="card-header">
+
+                        <div class="card-icon">
+                            <i class="fa-solid fa-user"></i>
+                        </div>
+
+                        <div>
+                            <h2>Mempelai Pria</h2>
+                            <p>Informasi lengkap mempelai pria</p>
+                        </div>
+
+                    </div>
+
+
+                    <!-- FOTO -->
+                    <div class="photo-section">
+
+                        <div
+                            class="photo-preview"
+                            id="groomPreview"
+                        >
+                            <i class="fa-solid fa-user"></i>
+                        </div>
+
+                        <div class="photo-action">
+
+                            <label
+                                for="groomPhotoFile"
+                                class="upload-btn"
+                            >
+                                <i class="fa-solid fa-camera"></i>
+                                Pilih Foto
+                            </label>
+
+                            <input
+                                type="file"
+                                id="groomPhotoFile"
+                                accept="image/jpeg,image/png,image/webp"
+                                hidden
+                            >
+
+                            <small>
+                                JPG, PNG atau WebP.
+                                Maksimal 5 MB.
+                            </small>
+
+                            <div
+                                id="groomUploadStatus"
+                                class="upload-status"
+                            ></div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- HIDDEN URL -->
+                    <input
+                        type="hidden"
+                        id="groomPhoto"
+                    >
+
+
+                    <!-- NAMA PANGGILAN -->
+                    <div class="form-group">
+
+                        <label for="groomName">
+                            Nama Panggilan
+                        </label>
+
+                        <input
+                            type="text"
+                            id="groomName"
+                            placeholder="Contoh: Bagas"
+                        >
+
+                    </div>
+
+
+                    <!-- NAMA LENGKAP -->
+                    <div class="form-group">
+
+                        <label for="groomFullName">
+                            Nama Lengkap
+                        </label>
+
+                        <input
+                            type="text"
+                            id="groomFullName"
+                            placeholder="Contoh: Bagas Pratama"
+                        >
+
+                    </div>
+
+
+                    <!-- AYAH -->
+                    <div class="form-group">
+
+                        <label for="groomFather">
+                            Nama Ayah
+                        </label>
+
+                        <input
+                            type="text"
+                            id="groomFather"
+                            placeholder="Nama ayah"
+                        >
+
+                    </div>
+
+
+                    <!-- IBU -->
+                    <div class="form-group">
+
+                        <label for="groomMother">
+                            Nama Ibu
+                        </label>
+
+                        <input
+                            type="text"
+                            id="groomMother"
+                            placeholder="Nama ibu"
+                        >
+
+                    </div>
+
+
+                    <!-- INSTAGRAM -->
+                    <div class="form-group">
+
+                        <label for="groomInstagram">
+                            Instagram
+                        </label>
+
+                        <div class="input-icon">
+
+                            <i class="fa-brands fa-instagram"></i>
+
+                            <input
+                                type="text"
+                                id="groomInstagram"
+                                placeholder="@username"
+                            >
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =====================================
+                     MEMPELAI WANITA
+                ====================================== -->
+
+                <div class="form-card">
+
+                    <div class="card-header">
+
+                        <div class="card-icon">
+                            <i class="fa-solid fa-user"></i>
+                        </div>
+
+                        <div>
+                            <h2>Mempelai Wanita</h2>
+                            <p>Informasi lengkap mempelai wanita</p>
+                        </div>
+
+                    </div>
+
+
+                    <!-- FOTO -->
+                    <div class="photo-section">
+
+                        <div
+                            class="photo-preview"
+                            id="bridePreview"
+                        >
+                            <i class="fa-solid fa-user"></i>
+                        </div>
+
+                        <div class="photo-action">
+
+                            <label
+                                for="bridePhotoFile"
+                                class="upload-btn"
+                            >
+                                <i class="fa-solid fa-camera"></i>
+                                Pilih Foto
+                            </label>
+
+                            <input
+                                type="file"
+                                id="bridePhotoFile"
+                                accept="image/jpeg,image/png,image/webp"
+                                hidden
+                            >
+
+                            <small>
+                                JPG, PNG atau WebP.
+                                Maksimal 5 MB.
+                            </small>
+
+                            <div
+                                id="brideUploadStatus"
+                                class="upload-status"
+                            ></div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- HIDDEN URL -->
+                    <input
+                        type="hidden"
+                        id="bridePhoto"
+                    >
+
+
+                    <!-- NAMA PANGGILAN -->
+                    <div class="form-group">
+
+                        <label for="brideName">
+                            Nama Panggilan
+                        </label>
+
+                        <input
+                            type="text"
+                            id="brideName"
+                            placeholder="Contoh: Anisa"
+                        >
+
+                    </div>
+
+
+                    <!-- NAMA LENGKAP -->
+                    <div class="form-group">
+
+                        <label for="brideFullName">
+                            Nama Lengkap
+                        </label>
+
+                        <input
+                            type="text"
+                            id="brideFullName"
+                            placeholder="Contoh: Anisa Putri"
+                        >
+
+                    </div>
+
+
+                    <!-- AYAH -->
+                    <div class="form-group">
+
+                        <label for="brideFather">
+                            Nama Ayah
+                        </label>
+
+                        <input
+                            type="text"
+                            id="brideFather"
+                            placeholder="Nama ayah"
+                        >
+
+                    </div>
+
+
+                    <!-- IBU -->
+                    <div class="form-group">
+
+                        <label for="brideMother">
+                            Nama Ibu
+                        </label>
+
+                        <input
+                            type="text"
+                            id="brideMother"
+                            placeholder="Nama ibu"
+                        >
+
+                    </div>
+
+
+                    <!-- INSTAGRAM -->
+                    <div class="form-group">
+
+                        <label for="brideInstagram">
+                            Instagram
+                        </label>
+
+                        <div class="input-icon">
+
+                            <i class="fa-brands fa-instagram"></i>
+
+                            <input
+                                type="text"
+                                id="brideInstagram"
+                                placeholder="@username"
+                            >
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- BUTTON -->
+                <div class="form-actions">
+
+                    <a
+                        href="index.html"
+                        class="btn btn-secondary"
+                    >
+                        <i class="fa-solid fa-arrow-left"></i>
+                        Dashboard
+                    </a>
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary"
+                        id="saveBtn"
+                    >
+                        <i class="fa-solid fa-floppy-disk"></i>
+                        <span>Simpan Mempelai</span>
+                    </button>
+
+                </div>
+
+            </form>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<!-- OVERLAY -->
+<div
+    class="overlay"
+    id="overlay"
+></div>
+
+
+<!-- SUPABASE -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="couple-form.js"></script>
+
+</body>
+</html>

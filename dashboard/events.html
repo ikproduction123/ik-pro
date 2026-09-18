@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar Acara - IK-PRO.ID</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+    <link rel="stylesheet" href="../assets/css/crud.css">
+</head>
+<body class="bg-light">
+
+    <div id="globalLoader" class="loader-overlay">
+        <div class="spinner"></div>
+    </div>
+
+    <div class="dashboard-layout">
+        <aside class="sidebar desktop-only">
+            <div class="sidebar-header">
+                <a href="index.html" class="logo">IK-PRO<span>.ID</span></a>
+            </div>
+            <ul class="sidebar-menu">
+                <li><a href="invitations.html"><i class="fa-solid fa-arrow-left"></i> Kembali</a></li>
+            </ul>
+        </aside>
+
+        <main class="dashboard-main">
+            <header class="topbar">
+                <div class="topbar-left">
+                    <h2>Daftar Acara</h2>
+                </div>
+            </header>
+
+            <div class="dashboard-content">
+                <div class="page-header">
+                    <p>Kelola jadwal acara (Akad, Resepsi, dll) untuk undangan ini.</p>
+                    <a href="#" id="btnAddEvent" class="btn-primary"><i class="fa-solid fa-plus"></i> Tambah Acara</a>
+                </div>
+
+                <div id="eventContainer" class="data-grid">
+                    <!-- Data acara akan dimuat di sini -->
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script type="module" src="../assets/js/events.js"></script>
+</body>
+</html>

@@ -1,0 +1,107 @@
+/* --- DATA LIST / CRUD STYLES --- */
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.data-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.data-card {
+    background-color: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+    display: flex;
+    flex-direction: column;
+}
+
+.data-card-header {
+    margin-bottom: 15px;
+    border-bottom: 1px solid var(--light);
+    padding-bottom: 10px;
+}
+
+.data-card-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--primary);
+}
+
+.data-card-badge {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-top: 5px;
+}
+
+.badge-draft { background-color: var(--border); color: var(--gray); }
+.badge-published { background-color: #e8f5e9; color: var(--secondary); }
+
+.data-card-body {
+    flex-grow: 1;
+    margin-bottom: 20px;
+}
+
+.data-card-body p {
+    font-size: 0.9rem;
+    color: var(--gray);
+    margin-bottom: 5px;
+}
+
+.data-card-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-small {
+    padding: 6px 12px;
+    font-size: 0.85rem;
+}
+
+.btn-danger {
+    background-color: transparent;
+    color: #e53935;
+    border: 1px solid #e53935;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.btn-danger:hover {
+    background-color: #e53935;
+    color: var(--white);
+}
+
+.empty-state {
+    text-align: center;
+    padding: 40px 20px;
+    background-color: var(--white);
+    border-radius: var(--radius);
+    border: 1px dashed var(--gray);
+    color: var(--gray);
+}
+
+.form-container {
+    background-color: var(--white);
+    padding: 30px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    max-width: 600px;
+}
+
+.help-text {
+    font-size: 0.8rem;
+    color: var(--gray);
+    margin-top: 4px;
+    display: block;
+}

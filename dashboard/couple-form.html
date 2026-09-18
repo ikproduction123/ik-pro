@@ -3,463 +3,139 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Data Mempelai - IK-PRO.ID</title>
-
-    <link rel="stylesheet" href="couple-form.css">
-
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-    >
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+    <link rel="stylesheet" href="../assets/css/crud.css">
+    <style>
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+        .form-section-title {
+            color: var(--primary);
+            border-bottom: 2px solid var(--gold);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .img-preview {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: var(--radius);
+            margin-top: 10px;
+            border: 1px solid var(--border);
+            display: none;
+        }
+        @media (max-width: 768px) {
+            .form-grid { grid-template-columns: 1fr; }
+        }
+    </style>
 </head>
+<body class="bg-light">
 
-<body>
+    <div id="globalLoader" class="loader-overlay">
+        <div class="spinner"></div>
+    </div>
 
-<div class="app">
-
-    <!-- SIDEBAR -->
-    <aside class="sidebar" id="sidebar">
-
-        <div class="sidebar-header">
-
-            <div class="logo">
-                IK-PRO<span>.ID</span>
+    <div class="dashboard-layout">
+        <aside class="sidebar desktop-only">
+            <div class="sidebar-header">
+                <a href="index.html" class="logo">IK-PRO<span>.ID</span></a>
             </div>
+            <ul class="sidebar-menu">
+                <li><a href="invitations.html"><i class="fa-solid fa-arrow-left"></i> Kembali</a></li>
+            </ul>
+        </aside>
 
-            <button
-                type="button"
-                class="close-sidebar"
-                id="closeSidebar"
-            >
-                <i class="fa-solid fa-xmark"></i>
-            </button>
+        <main class="dashboard-main">
+            <header class="topbar">
+                <div class="topbar-left">
+                    <h2>Data Mempelai</h2>
+                </div>
+            </header>
 
-        </div>
+            <div class="dashboard-content">
+                <div class="form-container" style="max-width: 900px;">
+                    <form id="coupleForm">
+                        <div class="form-grid">
+                            <!-- BAGIAN MEMPELAI WANITA (BRIDE) -->
+                            <div class="form-section">
+                                <h3 class="form-section-title"><i class="fa-solid fa-person-dress"></i> Mempelai Wanita</h3>
+                                
+                                <div class="form-group">
+                                    <label>Nama Panggilan</label>
+                                    <input type="text" id="bride_short_name" class="form-control" placeholder="Contoh: Anisa" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Nama Lengkap</label>
+                                    <input type="text" id="bride_full_name" class="form-control" placeholder="Contoh: Anisa Putri" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Nama Bapak</label>
+                                    <input type="text" id="bride_father" class="form-control" placeholder="Bapak Budi">
+                                </div>
+                                <div class="form-group">
+                                    <label>Nama Ibu</label>
+                                    <input type="text" id="bride_mother" class="form-control" placeholder="Ibu Siti">
+                                </div>
+                                <div class="form-group">
+                                    <label>Username Instagram</label>
+                                    <input type="text" id="bride_instagram" class="form-control" placeholder="Contoh: @anisaputri">
+                                </div>
+                                <div class="form-group">
+                                    <label>Foto Mempelai Wanita</label>
+                                    <input type="file" id="bride_photo" class="form-control" accept="image/jpeg, image/png, image/webp">
+                                    <span class="help-text">Format: JPG, PNG, WEBP. Maks 2MB.</span>
+                                    <img id="bride_preview" class="img-preview" alt="Preview Wanita">
+                                </div>
+                            </div>
 
+                            <!-- BAGIAN MEMPELAI PRIA (GROOM) -->
+                            <div class="form-section">
+                                <h3 class="form-section-title"><i class="fa-solid fa-person"></i> Mempelai Pria</h3>
+                                
+                                <div class="form-group">
+                                    <label>Nama Panggilan</label>
+                                    <input type="text" id="groom_short_name" class="form-control" placeholder="Contoh: Bagas" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Nama Lengkap</label>
+                                    <input type="text" id="groom_full_name" class="form-control" placeholder="Contoh: Bagas Saputra" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Nama Bapak</label>
+                                    <input type="text" id="groom_father" class="form-control" placeholder="Bapak Andi">
+                                </div>
+                                <div class="form-group">
+                                    <label>Nama Ibu</label>
+                                    <input type="text" id="groom_mother" class="form-control" placeholder="Ibu Rina">
+                                </div>
+                                <div class="form-group">
+                                    <label>Username Instagram</label>
+                                    <input type="text" id="groom_instagram" class="form-control" placeholder="Contoh: @bagassaputra">
+                                </div>
+                                <div class="form-group">
+                                    <label>Foto Mempelai Pria</label>
+                                    <input type="file" id="groom_photo" class="form-control" accept="image/jpeg, image/png, image/webp">
+                                    <span class="help-text">Format: JPG, PNG, WEBP. Maks 2MB.</span>
+                                    <img id="groom_preview" class="img-preview" alt="Preview Pria">
+                                </div>
+                            </div>
+                        </div>
 
-        <nav class="sidebar-menu">
-
-            <a href="index.html">
-                <i class="fa-solid fa-house"></i>
-                <span>Dashboard</span>
-            </a>
-
-            <a href="index.html">
-                <i class="fa-solid fa-envelope"></i>
-                <span>Undangan</span>
-            </a>
-
-            <a href="#" class="active">
-                <i class="fa-solid fa-users"></i>
-                <span>Mempelai</span>
-            </a>
-
-        </nav>
-
-
-        <div class="sidebar-bottom">
-
-            <button type="button" id="logoutBtn">
-                <i class="fa-solid fa-right-from-bracket"></i>
-                <span>Logout</span>
-            </button>
-
-        </div>
-
-    </aside>
-
-
-    <!-- MAIN -->
-    <main class="main">
-
-        <!-- TOPBAR -->
-        <header class="topbar">
-
-            <button
-                type="button"
-                class="menu-btn"
-                id="menuBtn"
-            >
-                <i class="fa-solid fa-bars"></i>
-            </button>
-
-            <div>
-
-                <h1>
-                    Data Mempelai
-                </h1>
-
-                <p id="welcomeText">
-                    Lengkapi data mempelai
-                </p>
-
+                        <div class="form-actions mt-3" style="border-top: 1px solid var(--border); padding-top: 20px;">
+                            <button type="submit" class="btn-primary" id="btnSubmit">Simpan Data Mempelai</button>
+                            <a href="invitations.html" class="btn-outline" style="margin-left: 10px;">Batal</a>
+                        </div>
+                    </form>
+                </div>
             </div>
+        </main>
+    </div>
 
-        </header>
-
-
-        <!-- CONTENT -->
-        <section class="content">
-
-            <form id="coupleForm">
-
-                <!-- =====================================
-                     MEMPELAI PRIA
-                ====================================== -->
-
-                <div class="form-card">
-
-                    <div class="card-header">
-
-                        <div class="card-icon">
-                            <i class="fa-solid fa-user"></i>
-                        </div>
-
-                        <div>
-                            <h2>Mempelai Pria</h2>
-                            <p>Informasi lengkap mempelai pria</p>
-                        </div>
-
-                    </div>
-
-
-                    <!-- FOTO -->
-                    <div class="photo-section">
-
-                        <div
-                            class="photo-preview"
-                            id="groomPreview"
-                        >
-                            <i class="fa-solid fa-user"></i>
-                        </div>
-
-                        <div class="photo-action">
-
-                            <label
-                                for="groomPhotoFile"
-                                class="upload-btn"
-                            >
-                                <i class="fa-solid fa-camera"></i>
-                                Pilih Foto
-                            </label>
-
-                            <input
-                                type="file"
-                                id="groomPhotoFile"
-                                accept="image/jpeg,image/png,image/webp"
-                                hidden
-                            >
-
-                            <small>
-                                JPG, PNG atau WebP.
-                                Maksimal 5 MB.
-                            </small>
-
-                            <div
-                                id="groomUploadStatus"
-                                class="upload-status"
-                            ></div>
-
-                        </div>
-
-                    </div>
-
-
-                    <!-- HIDDEN URL -->
-                    <input
-                        type="hidden"
-                        id="groomPhoto"
-                    >
-
-
-                    <!-- NAMA PANGGILAN -->
-                    <div class="form-group">
-
-                        <label for="groomName">
-                            Nama Panggilan
-                        </label>
-
-                        <input
-                            type="text"
-                            id="groomName"
-                            placeholder="Contoh: Bagas"
-                        >
-
-                    </div>
-
-
-                    <!-- NAMA LENGKAP -->
-                    <div class="form-group">
-
-                        <label for="groomFullName">
-                            Nama Lengkap
-                        </label>
-
-                        <input
-                            type="text"
-                            id="groomFullName"
-                            placeholder="Contoh: Bagas Pratama"
-                        >
-
-                    </div>
-
-
-                    <!-- AYAH -->
-                    <div class="form-group">
-
-                        <label for="groomFather">
-                            Nama Ayah
-                        </label>
-
-                        <input
-                            type="text"
-                            id="groomFather"
-                            placeholder="Nama ayah"
-                        >
-
-                    </div>
-
-
-                    <!-- IBU -->
-                    <div class="form-group">
-
-                        <label for="groomMother">
-                            Nama Ibu
-                        </label>
-
-                        <input
-                            type="text"
-                            id="groomMother"
-                            placeholder="Nama ibu"
-                        >
-
-                    </div>
-
-
-                    <!-- INSTAGRAM -->
-                    <div class="form-group">
-
-                        <label for="groomInstagram">
-                            Instagram
-                        </label>
-
-                        <div class="input-icon">
-
-                            <i class="fa-brands fa-instagram"></i>
-
-                            <input
-                                type="text"
-                                id="groomInstagram"
-                                placeholder="@username"
-                            >
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                <!-- =====================================
-                     MEMPELAI WANITA
-                ====================================== -->
-
-                <div class="form-card">
-
-                    <div class="card-header">
-
-                        <div class="card-icon">
-                            <i class="fa-solid fa-user"></i>
-                        </div>
-
-                        <div>
-                            <h2>Mempelai Wanita</h2>
-                            <p>Informasi lengkap mempelai wanita</p>
-                        </div>
-
-                    </div>
-
-
-                    <!-- FOTO -->
-                    <div class="photo-section">
-
-                        <div
-                            class="photo-preview"
-                            id="bridePreview"
-                        >
-                            <i class="fa-solid fa-user"></i>
-                        </div>
-
-                        <div class="photo-action">
-
-                            <label
-                                for="bridePhotoFile"
-                                class="upload-btn"
-                            >
-                                <i class="fa-solid fa-camera"></i>
-                                Pilih Foto
-                            </label>
-
-                            <input
-                                type="file"
-                                id="bridePhotoFile"
-                                accept="image/jpeg,image/png,image/webp"
-                                hidden
-                            >
-
-                            <small>
-                                JPG, PNG atau WebP.
-                                Maksimal 5 MB.
-                            </small>
-
-                            <div
-                                id="brideUploadStatus"
-                                class="upload-status"
-                            ></div>
-
-                        </div>
-
-                    </div>
-
-
-                    <!-- HIDDEN URL -->
-                    <input
-                        type="hidden"
-                        id="bridePhoto"
-                    >
-
-
-                    <!-- NAMA PANGGILAN -->
-                    <div class="form-group">
-
-                        <label for="brideName">
-                            Nama Panggilan
-                        </label>
-
-                        <input
-                            type="text"
-                            id="brideName"
-                            placeholder="Contoh: Anisa"
-                        >
-
-                    </div>
-
-
-                    <!-- NAMA LENGKAP -->
-                    <div class="form-group">
-
-                        <label for="brideFullName">
-                            Nama Lengkap
-                        </label>
-
-                        <input
-                            type="text"
-                            id="brideFullName"
-                            placeholder="Contoh: Anisa Putri"
-                        >
-
-                    </div>
-
-
-                    <!-- AYAH -->
-                    <div class="form-group">
-
-                        <label for="brideFather">
-                            Nama Ayah
-                        </label>
-
-                        <input
-                            type="text"
-                            id="brideFather"
-                            placeholder="Nama ayah"
-                        >
-
-                    </div>
-
-
-                    <!-- IBU -->
-                    <div class="form-group">
-
-                        <label for="brideMother">
-                            Nama Ibu
-                        </label>
-
-                        <input
-                            type="text"
-                            id="brideMother"
-                            placeholder="Nama ibu"
-                        >
-
-                    </div>
-
-
-                    <!-- INSTAGRAM -->
-                    <div class="form-group">
-
-                        <label for="brideInstagram">
-                            Instagram
-                        </label>
-
-                        <div class="input-icon">
-
-                            <i class="fa-brands fa-instagram"></i>
-
-                            <input
-                                type="text"
-                                id="brideInstagram"
-                                placeholder="@username"
-                            >
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                <!-- BUTTON -->
-                <div class="form-actions">
-
-                    <a
-                        href="index.html"
-                        class="btn btn-secondary"
-                    >
-                        <i class="fa-solid fa-arrow-left"></i>
-                        Dashboard
-                    </a>
-
-                    <button
-                        type="submit"
-                        class="btn btn-primary"
-                        id="saveBtn"
-                    >
-                        <i class="fa-solid fa-floppy-disk"></i>
-                        <span>Simpan Mempelai</span>
-                    </button>
-
-                </div>
-
-            </form>
-
-        </section>
-
-    </main>
-
-</div>
-
-
-<!-- OVERLAY -->
-<div
-    class="overlay"
-    id="overlay"
-></div>
-
-
-<!-- SUPABASE -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-<script src="couple-form.js"></script>
-
+    <script type="module" src="../assets/js/couple-form.js"></script>
 </body>
 </html>

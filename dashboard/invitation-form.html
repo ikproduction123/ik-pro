@@ -1,302 +1,60 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="id">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Undangan - IK-PRO.ID</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+    <link rel="stylesheet" href="../assets/css/crud.css">
+</head>
+<body class="bg-light">
 
-        <title>Form Undangan - IK-PRO.ID</title>
+    <div id="globalLoader" class="loader-overlay">
+        <div class="spinner"></div>
+    </div>
 
-        <link rel="stylesheet" href="invitation-form.css" />
+    <div class="dashboard-layout">
+        <!-- Sidebar disingkat untuk form (Tetap konsisten dengan layout) -->
+        <aside class="sidebar desktop-only">
+            <div class="sidebar-header">
+                <a href="index.html" class="logo">IK-PRO<span>.ID</span></a>
+            </div>
+            <ul class="sidebar-menu">
+                <li><a href="invitations.html"><i class="fa-solid fa-arrow-left"></i> Kembali</a></li>
+            </ul>
+        </aside>
 
-        <!-- Font Awesome -->
-        <link
-            rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-        />
-    </head>
-
-    <body>
-        <div class="app">
-            <!-- ================= SIDEBAR ================= -->
-            <aside class="sidebar" id="sidebar">
-                <div class="sidebar-header">
-                    <div class="logo">IK-PRO<span>.ID</span></div>
-
-                    <button class="close-sidebar" id="closeSidebar">
-                        <i class="fa-solid fa-xmark"></i>
-                    </button>
+        <main class="dashboard-main">
+            <header class="topbar">
+                <div class="topbar-left">
+                    <h2 id="pageTitle">Buat Undangan Baru</h2>
                 </div>
+            </header>
 
-                <nav class="sidebar-menu">
-                    <a href="index.html">
-                        <i class="fa-solid fa-house"></i>
-                        <span>Dashboard</span>
-                    </a>
-
-                    <a href="index.html">
-                        <i class="fa-solid fa-envelope"></i>
-                        <span>Undangan</span>
-                    </a>
-
-                    <a href="#" class="active">
-                        <i class="fa-solid fa-pen-to-square"></i>
-                        <span>Edit Undangan</span>
-                    </a>
-                </nav>
-
-                <div class="sidebar-bottom">
-                    <button id="logoutBtn">
-                        <i class="fa-solid fa-right-from-bracket"></i>
-                        <span>Logout</span>
-                    </button>
-                </div>
-            </aside>
-
-            <!-- ================= MAIN ================= -->
-            <main class="main">
-                <!-- TOPBAR -->
-                <header class="topbar">
-                    <button class="menu-btn" id="menuBtn">
-                        <i class="fa-solid fa-bars"></i>
-                    </button>
-
-                    <div>
-                        <h1 id="pageTitle">Buat Undangan</h1>
-
-                        <p id="welcomeText">Kelola informasi undangan Anda</p>
-                    </div>
-                </header>
-
-                <!-- CONTENT -->
-                <section class="content">
+            <div class="dashboard-content">
+                <div class="form-container">
                     <form id="invitationForm">
-                        <!-- ================= INFORMASI ================= -->
-                        <div class="form-card">
-                            <div class="card-header">
-                                <div class="card-icon">
-                                    <i class="fa-solid fa-envelope"></i>
-                                </div>
-
-                                <div>
-                                    <h2>Informasi Undangan</h2>
-                                    <p>Informasi dasar undangan digital</p>
-                                </div>
-                            </div>
-
-                            <!-- TITLE -->
-                            <div class="form-group">
-                                <label for="title"> Judul Undangan </label>
-
-                                <input
-                                    type="text"
-                                    id="title"
-                                    value="The Wedding Of"
-                                    placeholder="Contoh: The Wedding Of"
-                                    required
-                                />
-                            </div>
-
-                            <!-- SLUG -->
-                            <div class="form-group">
-                                <label for="slug"> Slug </label>
-
-                                <div class="slug-input">
-                                    <span> ik-pro.my.id/ </span>
-
-                                    <input
-                                        type="text"
-                                        id="slug"
-                                        placeholder="anisa-bagas"
-                                        required
-                                        autocomplete="off"
-                                    />
-                                </div>
-
-                                <small>
-                                    Gunakan huruf, angka dan tanda -
-                                    <br />
-                                    Contoh: <strong>anisa-bagas</strong>
-                                </small>
-
-                                <div class="slug-preview" id="slugPreview">
-                                    URL: -
-                                </div>
-                            </div>
-
-                            <!-- THEME -->
-                            <div class="form-group">
-                                <label for="theme"> Tema </label>
-
-                                <select id="theme" required>
-                                    <option value="modern-white">
-                                        Modern White
-                                    </option>
-
-                                    <option value="vintage-brown">
-                                        Vintage Brown
-                                    </option>
-
-                                    <option value="java-green">
-                                        Java Green
-                                    </option>
-                                </select>
-                            </div>
-
-                            <!-- STATUS -->
-                            <div class="form-group">
-                                <label for="status"> Status </label>
-
-                                <select id="status">
-                                    <option value="draft">Draft</option>
-
-                                    <option value="active">Aktif</option>
-                                </select>
-                            </div>
+                        <div class="form-group">
+                            <label for="title">Judul Undangan</label>
+                            <input type="text" id="title" class="form-control" placeholder="Contoh: The Wedding Of" required>
                         </div>
-
-                        <!-- ================= COVER ================= -->
-                        <div class="form-card">
-                            <div class="card-header">
-                                <div class="card-icon">
-                                    <i class="fa-solid fa-image"></i>
-                                </div>
-
-                                <div>
-                                    <h2>Cover Image</h2>
-                                    <p>Upload gambar cover undangan</p>
-                                </div>
-                            </div>
-
-                            <div class="upload-area">
-                                <label
-                                    for="coverImageFile"
-                                    class="upload-box"
-                                    id="uploadBox"
-                                >
-                                    <i class="fa-solid fa-cloud-arrow-up"></i>
-
-                                    <strong> Pilih Cover Image </strong>
-
-                                    <span> JPG, PNG atau WebP </span>
-
-                                    <small> Maksimal 5 MB </small>
-                                </label>
-
-                                <input
-                                    type="file"
-                                    id="coverImageFile"
-                                    accept="image/jpeg,image/png,image/webp"
-                                    hidden
-                                />
-
-                                <!-- URL hasil upload -->
-                                <input type="hidden" id="coverImage" />
-
-                                <!-- PREVIEW -->
-                                <div
-                                    class="cover-preview"
-                                    id="coverPreview"
-                                ></div>
-
-                                <!-- STATUS -->
-                                <div
-                                    class="upload-status"
-                                    id="uploadStatus"
-                                ></div>
-                            </div>
+                        <div class="form-group">
+                            <label for="slug">URL Undangan (Slug)</label>
+                            <input type="text" id="slug" class="form-control" placeholder="contoh: anisa-bagas" required>
+                            <span class="help-text">URL nantinya: https://ik-pro.my.id/<strong id="slugPreview">...</strong>/</span>
                         </div>
-
-                        <!-- ================= MUSIC ================= -->
-                        <div class="form-card">
-                            <div class="card-header">
-                                <div class="card-icon">
-                                    <i class="fa-solid fa-music"></i>
-                                </div>
-
-                                <div>
-                                    <h2>Music</h2>
-                                    <p>Pilih musik untuk undangan</p>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="music"> Pilihan Musik </label>
-
-                                <select id="music">
-                                    <option value="">Tanpa Musik</option>
-
-                                    <option value="romantic-1">
-                                        Romantic Piano
-                                    </option>
-
-                                    <option value="romantic-2">
-                                        Wedding Love
-                                    </option>
-
-                                    <option value="javanese-1">
-                                        Javanese Romantic
-                                    </option>
-
-                                    <option value="javanese-2">
-                                        Javanese Traditional
-                                    </option>
-
-                                    <option value="instrumental-1">
-                                        Romantic Instrumental
-                                    </option>
-                                </select>
-                            </div>
-
-                            <!-- MUSIC PLAYER -->
-                            <div class="music-player" id="musicPlayer">
-                                <div class="music-icon">
-                                    <i class="fa-solid fa-music"></i>
-                                </div>
-
-                                <div class="music-info">
-                                    <strong id="musicName">
-                                        Tanpa Musik
-                                    </strong>
-
-                                    <span> Preview musik </span>
-                                </div>
-
-                                <button type="button" id="musicPlayBtn">
-                                    <i class="fa-solid fa-play"></i>
-                                </button>
-                            </div>
-
-                            <audio id="musicAudio" preload="none"></audio>
-                        </div>
-
-                        <!-- ================= BUTTON ================= -->
-                        <div class="form-actions">
-                            <a href="index.html" class="btn btn-secondary">
-                                <i class="fa-solid fa-arrow-left"></i>
-                                Batal
-                            </a>
-
-                            <button
-                                type="submit"
-                                class="btn btn-primary"
-                                id="saveBtn"
-                            >
-                                <i class="fa-solid fa-floppy-disk"></i>
-                                <span>Simpan Undangan</span>
-                            </button>
-
+                        <div class="form-actions mt-3">
+                            <button type="submit" class="btn-primary" id="btnSubmit">Simpan Undangan</button>
+                            <a href="invitations.html" class="btn-outline" style="margin-left: 10px;">Batal</a>
                         </div>
                     </form>
-                </section>
-            </main>
-        </div>
+                </div>
+            </div>
+        </main>
+    </div>
 
-        <!-- OVERLAY MOBILE -->
-        <div class="overlay" id="overlay"></div>
-
-        <!-- SUPABASE -->
-        <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-        <script src="invitation-form.js"></script>
-    </body>
+    <script type="module" src="../assets/js/invitation-form.js"></script>
+</body>
 </html>

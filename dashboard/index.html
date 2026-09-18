@@ -1,364 +1,127 @@
-<!DOCTYPE html><html lang="id"><head><meta charset="UTF-8">
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - IK-PRO.ID</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+</head>
+<body class="bg-light">
 
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
->
-
-<title>Dashboard - IK-PRO.ID</title>
-
-<meta
-    name="description"
-    content="Dashboard IK-PRO.ID"
->
-
-<link
-    rel="stylesheet"
-    href="dashboard.css"
->
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-</head><body><!-- =====================================================
-     SIDEBAR
-===================================================== --><aside class="sidebar" id="sidebar"><div class="sidebar-logo">
-
-    <div class="logo-icon">
-        IK
+    <!-- Global Loader (Sesuai Aturan 35) -->
+    <div id="globalLoader" class="loader-overlay">
+        <div class="spinner"></div>
     </div>
 
-    <div class="logo-text">
-        <strong>IK-PRO</strong>
-        <span>.MY.ID</span>
-    </div>
-
-</div>
-
-
-<nav class="sidebar-menu">
-
-    <a
-        href="index.html"
-        class="menu-item active"
-    >
-        <span>▦</span>
-        <span>Dashboard</span>
-    </a>
-
-
-    <a
-        href="#"
-        class="menu-item"
-    >
-        <span>🎨</span>
-        <span>Pilih Tema</span>
-    </a>
-
-
-    <a
-        href="#"
-        class="menu-item"
-    >
-        <span>✎</span>
-        <span>Edit Undangan</span>
-    </a>
-
-
-    <a
-        href="#"
-        class="menu-item"
-    >
-        <span>👥</span>
-        <span>Tamu</span>
-    </a>
-
-
-    <a
-        href="#"
-        class="menu-item"
-    >
-        <span>💬</span>
-        <span>Ucapan</span>
-    </a>
-
-
-    <a
-        href="#"
-        class="menu-item"
-    >
-        <span>📊</span>
-        <span>Statistik</span>
-    </a>
-
-
-    <a
-        href="#"
-        class="menu-item"
-    >
-        <span>⚙️</span>
-        <span>Pengaturan</span>
-    </a>
-
-</nav>
-
-
-<div class="sidebar-bottom">
-
-    <button
-        id="logoutButton"
-        class="logout-button"
-    >
-        <span>↪</span>
-        <span>Keluar</span>
-    </button>
-
-</div>
-
-</aside><!-- =====================================================
-     OVERLAY MOBILE
-===================================================== --><div
-    class="sidebar-overlay"
-    id="sidebarOverlay"
-></div><!-- =====================================================
-     MAIN
-===================================================== --><main class="main-content"><!-- HEADER -->
-
-<header class="topbar">
-
-    <button
-        class="menu-toggle"
-        id="menuToggle"
-        aria-label="Buka menu"
-    >
-        ☰
-    </button>
-
-
-    <div class="topbar-title">
-
-        <span>Dashboard</span>
-
-    </div>
-
-
-    <div class="user-area">
-
-        <div class="user-avatar" id="userAvatar">
-            ?
-        </div>
-
-        <div class="user-info">
-
-            <strong id="userName">
-                Memuat...
-            </strong>
-
-            <span>
-                Client
-            </span>
-
-        </div>
-
-    </div>
-
-</header>
-
-
-
-<!-- CONTENT -->
-
-<section class="dashboard-content">
-
-
-    <!-- WELCOME -->
-
-    <div class="welcome-section">
-
-        <div>
-
-            <p class="welcome-label">
-                Dashboard Client
-            </p>
-
-            <h1>
-                Halo,
-                <span id="welcomeName">
-                    ...
-                </span>
-                👋
-            </h1>
-
-            <p>
-                Kelola undangan digital Anda
-                dengan mudah.
-            </p>
-
-        </div>
-
-
-        <button
-            class="primary-button"
-            id="createInvitationButton"
-        >
-            <span>+</span>
-            Buat Undangan
-        </button>
-
-    </div>
-
-
-
-    <!-- STATISTICS -->
-
-    <div class="stats-grid">
-
-
-        <div class="stat-card">
-
-            <div class="stat-icon">
-                💌
+    <div class="dashboard-layout">
+        <!-- Sidebar (Desktop) -->
+        <aside class="sidebar desktop-only">
+            <div class="sidebar-header">
+                <a href="index.html" class="logo">IK-PRO<span>.ID</span></a>
             </div>
-
-            <div>
-
-                <span>
-                    Total Undangan
-                </span>
-
-                <strong id="totalInvitations">
-                    0
-                </strong>
-
+            <ul class="sidebar-menu">
+                <li><a href="index.html" class="active"><i class="fa-solid fa-house"></i> Dashboard</a></li>
+                <li><a href="invitations.html"><i class="fa-solid fa-envelope-open-text"></i> Undangan Saya</a></li>
+                <li><a href="templates.html"><i class="fa-solid fa-palette"></i> Pilih Tema</a></li>
+                <!-- Menu edit akan aktif ketika invitation sudah dibuat -->
+                <li><a href="wishes.html"><i class="fa-solid fa-comments"></i> Ucapan</a></li>
+                <li><a href="rsvp.html"><i class="fa-solid fa-clipboard-check"></i> RSVP</a></li>
+                <li><a href="guests.html"><i class="fa-solid fa-users"></i> Tamu & WA</a></li>
+                <li><a href="statistics.html"><i class="fa-solid fa-chart-simple"></i> Statistik</a></li>
+            </ul>
+            <div class="sidebar-footer">
+                <button id="btnLogoutSidebar" class="btn-text"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
             </div>
+        </aside>
 
-        </div>
+        <!-- Main Content -->
+        <main class="dashboard-main">
+            <header class="topbar">
+                <div class="topbar-left">
+                    <h2 id="pageTitle">Overview</h2>
+                </div>
+                <div class="topbar-right">
+                    <div class="user-profile">
+                        <div class="avatar"><i class="fa-solid fa-user"></i></div>
+                        <span id="userNameDisplay">Memuat...</span>
+                    </div>
+                </div>
+            </header>
 
+            <div class="dashboard-content">
+                <!-- Statistik Cards -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background-color: #e8f5e9; color: var(--secondary);">
+                            <i class="fa-solid fa-envelope"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Total Undangan</h3>
+                            <p id="statTotalInvitations">0</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background-color: #fff8e1; color: var(--gold);">
+                            <i class="fa-solid fa-users"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Jumlah Tamu</h3>
+                            <p id="statTotalGuests">0</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background-color: #e3f2fd; color: #1976d2;">
+                            <i class="fa-solid fa-clipboard-check"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>RSVP Hadir</h3>
+                            <p id="statRsvp">0</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background-color: #fce4ec; color: #c2185b;">
+                            <i class="fa-solid fa-comments"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Total Ucapan</h3>
+                            <p id="statWishes">0</p>
+                        </div>
+                    </div>
+                </div>
 
-        <div class="stat-card">
-
-            <div class="stat-icon">
-                ✓
+                <!-- Quick Actions -->
+                <section class="quick-actions-section">
+                    <h3>Aksi Cepat</h3>
+                    <div class="quick-actions-grid mt-3">
+                        <a href="invitations.html" class="action-btn">
+                            <i class="fa-solid fa-plus"></i>
+                            <span>Buat Undangan</span>
+                        </a>
+                        <a href="templates.html" class="action-btn">
+                            <i class="fa-solid fa-palette"></i>
+                            <span>Lihat Tema</span>
+                        </a>
+                        <a href="#" class="action-btn" onclick="alert('Fitur segera hadir setelah undangan dibuat')">
+                            <i class="fa-solid fa-share-nodes"></i>
+                            <span>Share WhatsApp</span>
+                        </a>
+                    </div>
+                </section>
             </div>
+        </main>
 
-            <div>
-
-                <span>
-                    Undangan Aktif
-                </span>
-
-                <strong id="activeInvitations">
-                    0
-                </strong>
-
-            </div>
-
-        </div>
-
-
-        <div class="stat-card">
-
-            <div class="stat-icon">
-                📝
-            </div>
-
-            <div>
-
-                <span>
-                    Draft
-                </span>
-
-                <strong id="draftInvitations">
-                    0
-                </strong>
-
-            </div>
-
-        </div>
-
-
-        <div class="stat-card">
-
-            <div class="stat-icon">
-                👀
-            </div>
-
-            <div>
-
-                <span>
-                    Status
-                </span>
-
-                <strong>
-                    Client
-                </strong>
-
-            </div>
-
-        </div>
-
+        <!-- Bottom Navigation (Mobile Only) -->
+        <nav class="mobile-nav mobile-only">
+            <a href="index.html" class="active"><i class="fa-solid fa-house"></i><span>Home</span></a>
+            <a href="invitations.html"><i class="fa-solid fa-envelope-open-text"></i><span>Undangan</span></a>
+            <a href="wishes.html"><i class="fa-solid fa-comments"></i><span>Ucapan</span></a>
+            <button id="btnLogoutMobile" class="nav-btn"><i class="fa-solid fa-right-from-bracket"></i><span>Logout</span></button>
+        </nav>
     </div>
 
-
-
-    <!-- INVITATIONS -->
-
-    <div class="section-header">
-
-        <div>
-
-            <h2>
-                Undangan Saya
-            </h2>
-
-            <p>
-                Kelola semua undangan digital Anda.
-            </p>
-
-        </div>
-
-    </div>
-
-
-    <div
-        id="invitationList"
-        class="invitation-list"
-    >
-
-        <!-- Data Supabase masuk di sini -->
-
-    </div>
-
-
-    <!-- EMPTY STATE -->
-
-    <div
-        id="emptyState"
-        class="empty-state"
-        style="display: none;"
-    >
-
-        <div class="empty-icon">
-            💌
-        </div>
-
-        <h3>
-            Belum ada undangan
-        </h3>
-
-        <p>
-            Anda belum memiliki undangan digital.
-        </p>
-
-        <button
-            class="primary-button"
-            id="emptyCreateButton"
-        >
-            + Buat Undangan
-        </button>
-
-    </div>
-
-
-</section>
-
-</main><script src="dashboard.js"></script></body></html>
+    <!-- Script -->
+    <script type="module" src="../assets/js/dashboard.js"></script>
+</body>
+</html>

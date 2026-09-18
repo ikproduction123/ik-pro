@@ -1,195 +1,44 @@
-<!DOCTYPE html><html lang="id">
+<!DOCTYPE html>
+<html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Daftar - IK-PRO.ID</title>
-<meta name="description" content="Buat akun IK-PRO.ID">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar IK-PRO.ID</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="auth-page">
 
-<link rel="stylesheet" href="assets/css/auth.css">
+    <div class="auth-card">
+        <h2>Daftar Akun Baru</h2>
+        <p>Bergabunglah untuk membuat undangan digital Anda</p>
 
-<!-- Supabase -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-</head><body><main class="auth-page">
-
-    <section class="auth-card">
-
-        <div class="auth-logo">
-            <div class="logo-icon">IK</div>
-
-            <div class="logo-text">
-                <strong>IK-PRO</strong>
-                <span>.MY.ID</span>
-            </div>
-        </div>
-
-        <div class="auth-header">
-            <h1>Buat Akun 🎉</h1>
-            <p>Mulai buat undangan digital Anda</p>
-        </div>
-
-        <form id="registerForm" class="auth-form">
-
-            <!-- Nama -->
+        <form id="registerForm">
             <div class="form-group">
-
-                <label for="registerName">
-                    Nama Lengkap
-                </label>
-
-                <div class="input-wrapper">
-                    <span class="input-icon">👤</span>
-
-                    <input
-                        type="text"
-                        id="registerName"
-                        name="nama_lengkap"
-                        placeholder="Masukkan nama lengkap"
-                        autocomplete="name"
-                        required
-                    >
-                </div>
-
+                <label for="name">Nama Lengkap</label>
+                <input type="text" id="name" class="form-control" placeholder="Contoh: Budi Santoso" required>
             </div>
-
-            <!-- Nomor WA -->
             <div class="form-group">
-
-                <label for="registerPhone">
-                    Nomor WhatsApp
-                </label>
-
-                <div class="input-wrapper">
-                    <span class="input-icon">📱</span>
-
-                    <input
-                        type="tel"
-                        id="registerPhone"
-                        name="nomor_wa"
-                        placeholder="Contoh: 081234567890"
-                        autocomplete="tel"
-                        required
-                    >
-                </div>
-
-                <small class="form-hint">
-                    Nomor ini digunakan untuk komunikasi dan layanan IK-PRO.ID
-                </small>
-
+                <label for="phone">No. WhatsApp</label>
+                <input type="tel" id="phone" class="form-control" placeholder="Contoh: 08123456789" required>
             </div>
-
-            <!-- Email -->
             <div class="form-group">
-
-                <label for="registerEmail">
-                    Email
-                </label>
-
-                <div class="input-wrapper">
-                    <span class="input-icon">✉</span>
-
-                    <input
-                        type="email"
-                        id="registerEmail"
-                        name="email"
-                        placeholder="Masukkan email"
-                        autocomplete="email"
-                        required
-                    >
-                </div>
-
+                <label for="email">Email</label>
+                <input type="email" id="email" class="form-control" placeholder="nama@email.com" required>
             </div>
-
-            <!-- Password -->
             <div class="form-group">
-
-                <label for="registerPassword">
-                    Password
-                </label>
-
-                <div class="input-wrapper">
-                    <span class="input-icon">🔒</span>
-
-                    <input
-                        type="password"
-                        id="registerPassword"
-                        name="password"
-                        placeholder="Minimal 6 karakter"
-                        autocomplete="new-password"
-                        minlength="6"
-                        required
-                    >
-
-                    <button
-                        type="button"
-                        class="password-toggle"
-                        data-target="registerPassword"
-                        aria-label="Tampilkan password"
-                    >
-                        👁
-                    </button>
-                </div>
-
+                <label for="password">Password</label>
+                <input type="password" id="password" class="form-control" placeholder="Minimal 6 karakter" required minlength="6">
             </div>
-
-            <!-- Konfirmasi Password -->
-            <div class="form-group">
-
-                <label for="registerPasswordConfirm">
-                    Konfirmasi Password
-                </label>
-
-                <div class="input-wrapper">
-                    <span class="input-icon">🔒</span>
-
-                    <input
-                        type="password"
-                        id="registerPasswordConfirm"
-                        name="password_confirm"
-                        placeholder="Ulangi password"
-                        autocomplete="new-password"
-                        minlength="6"
-                        required
-                    >
-
-                    <button
-                        type="button"
-                        class="password-toggle"
-                        data-target="registerPasswordConfirm"
-                        aria-label="Tampilkan password"
-                    >
-                        👁
-                    </button>
-                </div>
-
-            </div>
-
-            <div id="registerMessage" class="form-message"></div>
-
-            <button
-                type="submit"
-                id="registerButton"
-                class="auth-button"
-            >
-                <span class="button-text">Daftar Sekarang</span>
-                <span class="button-loading">Membuat akun...</span>
-            </button>
-
+            <button type="submit" class="btn-primary" id="btnSubmit">Daftar Sekarang</button>
         </form>
 
-        <div class="auth-footer">
-
-            <p>
-                Sudah punya akun?
-                <a href="login.html">Masuk sekarang</a>
-            </p>
-
+        <div class="auth-links">
+            Sudah punya akun? <a href="login.html">Masuk di sini</a>
         </div>
+    </div>
 
-    </section>
-
-</main>
-
-<script src="assets/js/auth.js"></script>
-
+    <!-- Script Utama (Menggunakan Module agar bisa import) -->
+    <script type="module" src="assets/js/register.js"></script>
 </body>
 </html>

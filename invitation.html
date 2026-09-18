@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Undangan Pernikahan - IK-PRO.ID</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        /* Styling Tambahan Khusus Halaman Publik Undangan */
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f6f9; color: #333; margin: 0; padding: 0; }
+        .inv-container { max-width: 480px; margin: 0 auto; background: #fff; min-height: 100vh; box-shadow: 0 0 20px rgba(0,0,0,0.1); position: relative; }
+        .hero-section { height: 100vh; background-size: cover; background-position: center; display: flex; flex-direction: column; justify-content: flex-end; padding: 40px 20px; text-align: center; color: white; position: relative; }
+        .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0.2)); z-index: 1; }
+        .hero-content { position: relative; z-index: 2; }
+        .section-box { padding: 40px 20px; text-align: center; border-bottom: 1px solid #eee; }
+        .couple-img { width: 150px; height: 150px; border-radius: 50%; object-fit: cover; margin: 15px auto; border: 3px solid var(--primary, #d4af37); }
+        .event-card { background: #fafafa; border: 1px solid #e1e1e1; border-radius: 8px; padding: 20px; margin-bottom: 15px; text-align: left; }
+        .gallery-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 15px; }
+        .gallery-item { height: 150px; border-radius: 6px; overflow: hidden; }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; }
+        .wish-box { background: #f9f9f9; padding: 15px; border-radius: 8px; margin-bottom: 10px; text-align: left; border-left: 4px solid var(--primary, #d4af37); }
+        .cover-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 9999; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; text-align: center; padding: 20px; transition: opacity 0.5s ease; }
+    </style>
+</head>
+<body>
+
+    <!-- Layar Sampul Depan (Cover Pembuka) -->
+    <div id="coverScreen" class="cover-screen">
+        <h3 style="font-weight: 300; letter-spacing: 2px; margin-bottom: 5px;">THE WEDDING OF</h3>
+        <h1 id="coverCoupleNames" style="font-size: 2.5rem; margin-bottom: 20px; color: #d4af37;">Mempelai</h1>
+        <p style="margin-bottom: 5px; color: #ccc;">Kepada Yth. Bapak/Ibu/Saudara/i:</p>
+        <h3 id="guestName" style="background: rgba(255,255,255,0.1); padding: 8px 20px; border-radius: 20px; margin-bottom: 30px;">Tamu Undangan</h3>
+        <button id="btnOpenInvitation" class="btn-primary" style="padding: 12px 30px; font-size: 1rem; border-radius: 30px; cursor: pointer;"><i class="fa-solid fa-envelope-open"></i> Buka Undangan</button>
+    </div>
+
+    <!-- Konten Utama Undangan -->
+    <div class="inv-container" id="invContainer" style="display: none;">
+        
+        <!-- Hero / Banner Utama -->
+        <div id="heroSection" class="hero-section">
+            <div class="hero-overlay"></div>
+            <div class="hero-content">
+                <p style="text-transform: uppercase; letter-spacing: 3px; font-size: 0.9rem;">The Wedding Of</p>
+                <h1 id="mainCoupleTitle" style="font-size: 2.5rem; margin: 10px 0;">Nama & Nama</h1>
+                <p id="mainDate" style="font-size: 1rem;"><i class="fa-solid fa-calendar-days"></i> Tanggal Acara</p>
+            </div>
+        </div>
+
+        <!-- Bagian Mempelai -->
+        <section class="section-box">
+            <h2>Mempelai Bahagia</h2>
+            <p style="color: #666; font-size: 0.9rem; margin-bottom: 25px;">Maha suci Allah yang telah menciptakan makhluk-Nya berpasang-pasangan.</p>
+            
+            <div id="groomSection">
+                <img id="groomImg" src="" alt="Mempelai Pria" class="couple-img">
+                <h3 id="groomFullName">Nama Pria</h3>
+                <p id="groomParents" style="font-size: 0.85rem; color: #666; margin-top: 5px;">Putra dari Bpk... & Ibu...</p>
+            </div>
+
+            <h2 style="margin: 30px 0 15px 0; font-family: cursive; color: #d4af37;">&</h2>
+
+            <div id="brideSection">
+                <img id="brideImg" src="" alt="Mempelai Wanita" class="couple-img">
+                <h3 id="brideFullName">Nama Wanita</h3>
+                <p id="brideParents" style="font-size: 0.85rem; color: #666; margin-top: 5px;">Putri dari Bpk... & Ibu...</p>
+            </div>
+        </section>
+
+        <!-- Bagian Acara (Events) -->
+        <section class="section-box" style="background: #fff;">
+            <h2>Jadwal Acara</h2>
+            <p style="color: #666; font-size: 0.9rem; margin-bottom: 25px;">Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila... penyelenggaraan acara:</p>
+            <div id="eventsContainer">
+                <!-- Data Acara dimuat dinamis -->
+            </div>
+        </section>
+
+        <!-- Bagian Love Stories -->
+        <section class="section-box" style="background: #fafafa;" id="storySectionWrapper">
+            <h2>Kisah Cinta Kami</h2>
+            <div id="storiesContainer" style="margin-top: 20px;">
+                <!-- Data Cerita dimuat dinamis -->
+            </div>
+        </section>
+
+        <!-- Bagian Galeri Foto -->
+        <section class="section-box" id="gallerySectionWrapper">
+            <h2>Galeri Momen</h2>
+            <div id="galleryContainer" class="gallery-grid">
+                <!-- Data Galeri dimuat dinamis -->
+            </div>
+        </section>
+
+        <!-- Bagian RSVP & Buku Tamu (Wishes) -->
+        <section class="section-box">
+            <h2>Konfirmasi Kehadiran (RSVP)</h2>
+            <form id="rsvpForm" style="margin-top: 20px; text-align: left;">
+                <div class="form-group" style="margin-bottom: 15px;">
+                    <label style="font-size: 0.85rem; font-weight: 600;">Nama Lengkap</label>
+                    <input type="text" id="rsvpName" class="form-control" required style="width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px;">
+                </div>
+                <div class="form-group" style="margin-bottom: 15px;">
+                    <label style="font-size: 0.85rem; font-weight: 600;">Konfirmasi Kehadiran</label>
+                    <select id="rsvpStatus" class="form-control" style="width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px;" required>
+                        <option value="Hadir">Hadir</option>
+                        <option value="Tidak Hadir">Tidak Hadir</option>
+                    </select>
+                </div>
+                <div class="form-group" style="margin-bottom: 15px;">
+                    <label style="font-size: 0.85rem; font-weight: 600;">Jumlah Hadir (Pax)</label>
+                    <input type="number" id="rsvpPax" class="form-control" value="1" min="1" style="width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px;" required>
+                </div>
+                <button type="submit" class="btn-primary" style="width: 100%; padding: 12px; cursor: pointer;">Kirim Konfirmasi</button>
+            </form>
+        </section>
+
+        <section class="section-box" style="background: #fafafa;">
+            <h2>Buku Tamu & Ucapan</h2>
+            <form id="wishForm" style="margin-top: 20px; text-align: left; margin-bottom: 30px;">
+                <div class="form-group" style="margin-bottom: 15px;">
+                    <label style="font-size: 0.85rem; font-weight: 600;">Nama</label>
+                    <input type="text" id="wishName" class="form-control" required style="width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px;">
+                </div>
+                <div class="form-group" style="margin-bottom: 15px;">
+                    <label style="font-size: 0.85rem; font-weight: 600;">Ucapan & Doa</label>
+                    <textarea id="wishMessage" rows="3" class="form-control" required style="width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px;" placeholder="Tuliskan ucapan dan doa restu..."></textarea>
+                </div>
+                <button type="submit" class="btn-primary" style="width: 100%; padding: 12px; cursor: pointer;">Kirim Ucapan</button>
+            </form>
+
+            <div id="wishesListContainer" style="max-height: 400px; overflow-y: auto;">
+                <!-- Daftar ucapan dimuat dinamis -->
+            </div>
+        </section>
+
+        <footer style="text-align: center; padding: 20px; font-size: 0.8rem; color: #888; background: #fff;">
+            Created with ❤️ by <a href="index.html" style="color: var(--primary); text-decoration: none; font-weight: bold;">IK-PRO.ID</a>
+        </footer>
+    </div>
+
+    <script type="module" src="assets/js/invitation-view.js"></script>
+</body>
+</html>

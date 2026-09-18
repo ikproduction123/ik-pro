@@ -30,8 +30,13 @@ const loadStories = async () => {
 
         let html = '';
         data.forEach(item => {
+            const imgTag = item.image_url 
+                ? `<div style="height: 140px; overflow: hidden; border-radius: 6px; margin-bottom: 10px;"><img src="${item.image_url}" style="width: 100%; height: 100%; object-fit: cover;" alt="Story"></div>` 
+                : '';
+
             html += `
                 <div class="data-card">
+                    ${imgTag}
                     <div class="data-card-header">
                         <div class="data-card-title">${item.title}</div>
                         <span style="font-size: 0.8rem; color: var(--gray);"><i class="fa-solid fa-calendar"></i> ${item.date}</span>
@@ -46,6 +51,7 @@ const loadStories = async () => {
                 </div>
             `;
         });
+
         container.innerHTML = html;
     } catch (err) {
         console.error(err);

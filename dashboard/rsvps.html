@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar RSVP - IK-PRO.ID</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+    <link rel="stylesheet" href="../assets/css/crud.css">
+</head>
+<body class="bg-light">
+    <div id="globalLoader" class="loader-overlay"><div class="spinner"></div></div>
+    <div class="dashboard-layout">
+        <aside class="sidebar desktop-only">
+            <div class="sidebar-header"><a href="index.html" class="logo">IK-PRO<span>.ID</span></a></div>
+            <ul class="sidebar-menu">
+                <li><a href="invitations.html"><i class="fa-solid fa-arrow-left"></i> Kembali</a></li>
+            </ul>
+        </aside>
+        <main class="dashboard-main">
+            <header class="topbar"><div class="topbar-left"><h2>Daftar RSVP (Kehadiran)</h2></div></header>
+            <div class="dashboard-content">
+                <div class="page-header">
+                    <p>Rekapitulasi konfirmasi kehadiran tamu undangan.</p>
+                </div>
+                <div id="rsvpContainer" class="data-grid"></div>
+            </div>
+        </main>
+    </div>
+    <script type="module" src="../assets/js/rsvps.js"></script>
+</body>
+</html>

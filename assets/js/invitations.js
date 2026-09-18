@@ -68,8 +68,11 @@ const renderInvitations = invitations => {
                     <a href="events.html?inv_id=${inv.id}" class="btn-primary btn-small" style="background-color: var(--secondary); border-color: var(--secondary);"><i class="fa-solid fa-calendar-days"></i> Acara</a>
                     <a href="galleries.html?inv_id=${inv.id}" class="btn-primary btn-small" style="background-color: #673ab7; border-color: #673ab7;"><i class="fa-solid fa-images"></i> Galeri</a>
                     <a href="stories.html?inv_id=${inv.id}" class="btn-primary btn-small" style="background-color: #e91e63; border-color: #e91e63;"><i class="fa-solid fa-book-open"></i> Cerita</a>
+                    <a href="rsvps.html?inv_id=${inv.id}" class="btn-primary btn-small" style="background-color: #009688; border-color: #009688;"><i class="fa-solid fa-users"></i> RSVP</a>
+                    <a href="wishes.html?inv_id=${inv.id}" class="btn-primary btn-small" style="background-color: #ff9800; border-color: #ff9800;"><i class="fa-solid fa-comments"></i> Ucapan</a>
                     <button class="btn-danger btn-small btn-delete" data-id="${inv.id}"><i class="fa-solid fa-trash"></i> Hapus</button>
                 </div>
+
 
 
             </div>

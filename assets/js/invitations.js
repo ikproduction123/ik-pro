@@ -62,12 +62,15 @@ const renderInvitations = invitations => {
                     <p><i class="fa-solid fa-link"></i> <a href="${url}" target="_blank" style="color:var(--primary);text-decoration:underline;">/${inv.slug}</a></p>
                     <p><i class="fa-solid fa-palette"></i> Tema: ${inv.theme}</p>
                 </div>
-                <div class="data-card-actions" style="flex-wrap: wrap; gap: 8px;">
+                <div class="data-card-actions" style="flex-wrap: wrap; gap: 6px;">
                     <a href="invitation-form.html?id=${inv.id}" class="btn-outline btn-small"><i class="fa-solid fa-pen"></i> Info</a>
                     <a href="couple-form.html?inv_id=${inv.id}" class="btn-primary btn-small"><i class="fa-solid fa-heart"></i> Mempelai</a>
                     <a href="events.html?inv_id=${inv.id}" class="btn-primary btn-small" style="background-color: var(--secondary); border-color: var(--secondary);"><i class="fa-solid fa-calendar-days"></i> Acara</a>
+                    <a href="galleries.html?inv_id=${inv.id}" class="btn-primary btn-small" style="background-color: #673ab7; border-color: #673ab7;"><i class="fa-solid fa-images"></i> Galeri</a>
+                    <a href="stories.html?inv_id=${inv.id}" class="btn-primary btn-small" style="background-color: #e91e63; border-color: #e91e63;"><i class="fa-solid fa-book-open"></i> Cerita</a>
                     <button class="btn-danger btn-small btn-delete" data-id="${inv.id}"><i class="fa-solid fa-trash"></i> Hapus</button>
                 </div>
+
 
             </div>
         `;

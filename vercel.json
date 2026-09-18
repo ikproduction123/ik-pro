@@ -1,12 +1,6 @@
 {
-  "rewrites": [
-    {
-      "source": "/((?!assets|dashboard|_next|api).* )",
-      "destination": "/invitation.html"
-    },
-    {
-      "source": "/:slug",
-      "destination": "/invitation.html"
-    }
+  "routes": [
+    { "handle": "filesystem" },
+    { "src": "/((?!assets|dashboard|favicon.ico).*)", "destination": "/invitation.html" }
   ]
 }

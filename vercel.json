@@ -1,7 +1,11 @@
 {
   "rewrites": [
     {
-      "source": "/([a-zA-Z0-9_-]+)",
+      "source": "/((?!assets|dashboard|_next|api).* )",
+      "destination": "/invitation.html"
+    },
+    {
+      "source": "/:slug",
       "destination": "/invitation.html"
     }
   ]
